@@ -13,8 +13,8 @@ class LandingPage extends StatelessWidget {
     );
 
     final logo = Container(
-      height: 100.0,
-      width: 100.0,
+      height: 200.0,
+      width: 200.0,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AvailableImages.appLogo,
@@ -26,7 +26,7 @@ class LandingPage extends StatelessWidget {
     final appName = Column(
       children: <Widget>[
         Text(
-          AppConfig.appName,
+          'Aidly',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -34,12 +34,9 @@ class LandingPage extends StatelessWidget {
           ),
         ),
         Text(
-          AppConfig.appTagline,
+          'Find your perfect volunteer match.',
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.0,
-            fontWeight: FontWeight.w500
-          ),
+              color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w500),
         )
       ],
     );
@@ -124,12 +121,6 @@ class LandingPage extends StatelessWidget {
                 child: Container(
                   height: 300.0,
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AvailableImages.homePage,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
                 ),
               ),
             )

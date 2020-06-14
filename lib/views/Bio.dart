@@ -3,12 +3,12 @@ import 'package:flutter_social/_routing/routes.dart';
 import 'package:flutter_social/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
 
-class RegisterPage extends StatefulWidget {
+class BioPage extends StatefulWidget {
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterPageState extends State<BioPage> {
   final _formKey = GlobalKey<FormState>();
   int _genderRadioBtnVal = -1;
 
@@ -38,11 +38,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
     final pageTitle = Container(
       child: Text(
-        "Tell us about you.",
+        "Tell us your Why",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
-          fontSize: 20.0,
+          fontSize: 40.0,
         ),
       ),
     );
@@ -57,18 +57,17 @@ class _RegisterPageState extends State<RegisterPage> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            _buildFormField('Name', LineIcons.user),
+            _buildFormField(
+                'Tell us why you want to volunteer.', LineIcons.user),
             formFieldSpacing,
-            _buildFormField('Email Address', LineIcons.envelope),
-            formFieldSpacing,
-            _buildFormField('Phone Number', LineIcons.mobile_phone),
-            formFieldSpacing,
-            _buildFormField('Zip Code', LineIcons.home),
-            formFieldSpacing,
-            _buildFormField('Password', LineIcons.lock),
           ],
         ),
       ),
+    );
+
+    final calendar = Padding(
+      padding: EdgeInsets.only(top: 30.0),
+      child: Container(),
     );
 
     final submitBtn = Padding(
@@ -87,7 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
           elevation: 10.0,
           shadowColor: Colors.white70,
           child: MaterialButton(
-            onPressed: () => Navigator.of(context).pushNamed(bioViewRoute),
+            onPressed: () => Navigator.of(context).pushNamed(homeViewRoute),
             child: Text(
               'CREATE ACCOUNT',
               style: TextStyle(
@@ -112,7 +111,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: EdgeInsets.only(left: 30.0, right: 30.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[pageTitle, registerForm, submitBtn],
+                  children: <Widget>[
+                    pageTitle,
+                    registerForm,
+                    calendar,
+                    submitBtn
+                  ],
                 ),
               )
             ],

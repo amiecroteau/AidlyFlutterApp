@@ -5,5 +5,6 @@ const String registerViewRoute = 'register';
 const String resetPasswordViewRoute = 'reset_password';
 
 const String homeViewRoute = 'home';
+const String bioViewRoute = 'bio';
 const String chatDetailsViewRoute = 'chat_details';
 const String userDetailsViewRoute = 'user_details';
