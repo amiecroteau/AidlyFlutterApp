@@ -42,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
-          fontSize: 20.0,
+          fontSize: 30.0,
         ),
       ),
     );
@@ -72,10 +72,10 @@ class _RegisterPageState extends State<RegisterPage> {
     );
 
     final submitBtn = Padding(
-      padding: EdgeInsets.only(top: 20.0),
+      padding: EdgeInsets.only(top: 10.0),
       child: Container(
         margin: EdgeInsets.only(top: 10.0, bottom: 20.0),
-        height: 60.0,
+        height: 50.0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7.0),
