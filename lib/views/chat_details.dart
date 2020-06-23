@@ -17,7 +17,8 @@ class ChatDetailsPage extends StatelessWidget {
     final deviceWidth = MediaQuery.of(context).size.width;
 
     final userImage = InkWell(
-      onTap: () => Navigator.pushNamed(context, userDetailsViewRoute, arguments: user.id),
+      onTap: () => Navigator.pushNamed(context, userDetailsViewRoute,
+          arguments: user.id),
       child: Hero(
         tag: user.photo,
         child: Container(

@@ -17,9 +17,9 @@ class ProfilePage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          _buildUserStats('VISITORS', '2305'),
-          _buildUserStats('LIKED', '276'),
-          _buildUserStats('MATCHED', '51'),
+          _buildUserStats('VISITORS', '0'),
+          _buildUserStats('LIKED', '22276'),
+          _buildUserStats('MATCHED', '0'),
         ],
       ),
     );
@@ -138,11 +138,13 @@ class ProfilePage extends StatelessWidget {
               hr,
               _buildIconTile(LineIcons.diamond, Colors.blue, 'VIP Center'),
               hr,
-              _buildIconTile(LineIcons.user_plus, Colors.orangeAccent, 'Find Friends'),
+              _buildIconTile(
+                  LineIcons.user_plus, Colors.orangeAccent, 'Find Friends'),
               hr,
               _buildIconTile(LineIcons.user_times, Colors.black, 'Blacklist'),
               hr,
-              _buildIconTile(LineIcons.cogs, Colors.grey.withOpacity(0.6), 'Settings'),
+              _buildIconTile(
+                  LineIcons.cogs, Colors.grey.withOpacity(0.6), 'Settings'),
             ],
           ),
         ),
@@ -169,7 +171,8 @@ class ProfilePage extends StatelessWidget {
                       Positioned(top: 100, right: 0, left: 0, child: userInfo)
                     ],
                   ),
-                  secondCard, thirdCard
+                  secondCard,
+                  thirdCard
                 ],
               ),
             ),
@@ -204,7 +207,10 @@ class ProfilePage extends StatelessWidget {
 
   Widget _buildIconTile(IconData icon, Color color, String title) {
     return ListTile(
-      title: Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
+      title: Text(
+        title,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       leading: Container(
         height: 30.0,
         width: 30.0,

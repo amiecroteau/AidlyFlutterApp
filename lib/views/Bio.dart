@@ -5,16 +5,16 @@ import 'package:line_icons/line_icons.dart';
 
 class BioPage extends StatefulWidget {
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  _BioPageState createState() => _BioPageState();
 }
 
-class _RegisterPageState extends State<BioPage> {
+class _BioPageState extends State<BioPage> {
   final _formKey = GlobalKey<FormState>();
-  int _genderRadioBtnVal = -1;
+  int _dayRadioBtnVal = -1;
 
-  void _handleGenderChange(int value) {
+  void _handleDayChange(int value) {
     setState(() {
-      _genderRadioBtnVal = value;
+      _dayRadioBtnVal = value;
     });
   }
 
@@ -38,36 +38,51 @@ class _RegisterPageState extends State<BioPage> {
 
     final pageTitle = Container(
       child: Text(
-        "Tell us your Why",
+        "Tell us why you want to volunteer.",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
-          fontSize: 30.0,
+          fontSize: 20.0,
         ),
       ),
     );
 
     final formFieldSpacing = SizedBox(
-      height: 30.0,
+      height: 20.0,
     );
 
-    final registerForm = Padding(
+    final bioForm = Padding(
       padding: EdgeInsets.only(top: 30.0),
       child: Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
             _buildFormField(
-                'Tell us why you want to volunteer.', LineIcons.user),
-            formFieldSpacing,
+                'Write a sentence explaining who you are.', LineIcons.user),
+            formFieldSpacing
           ],
         ),
       ),
     );
 
-    final calendar = Padding(
-      padding: EdgeInsets.only(top: 30.0),
-      child: Container(),
+    final days = Padding(
+      padding: EdgeInsets.only(top: 0.0),
+      child: Row(
+        children: <Widget>[
+          Radio(
+            value: 0,
+            groupValue: _dayRadioBtnVal,
+            onChanged: _handleDayChange,
+          ),
+          Text("Weekends"),
+          Radio(
+            value: 1,
+            groupValue: _dayRadioBtnVal,
+            onChanged: _handleDayChange,
+          ),
+          Text("Weekdays"),
+        ],
+      ),
     );
 
     final submitBtn = Padding(
@@ -111,12 +126,7 @@ class _RegisterPageState extends State<BioPage> {
                 padding: EdgeInsets.only(left: 30.0, right: 30.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    pageTitle,
-                    registerForm,
-                    calendar,
-                    submitBtn
-                  ],
+                  children: <Widget>[pageTitle, bioForm, days, submitBtn],
                 ),
               )
             ],
