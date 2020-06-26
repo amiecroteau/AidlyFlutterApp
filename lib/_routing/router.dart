@@ -8,6 +8,8 @@ import 'package:flutter_social/views/register.dart';
 import 'package:flutter_social/views/reset_password.dart';
 import 'package:flutter_social/views/user_details.dart';
 import 'package:flutter_social/views/bio.dart';
+import 'package:flutter_social/views/expertise.dart';
+import 'package:flutter_social/views/interests.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -21,6 +23,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => RegisterPage());
     case bioViewRoute:
       return MaterialPageRoute(builder: (context) => BioPage());
+    case interestsViewRoute:
+      return MaterialPageRoute(builder: (context) => InterestsPage());
+    case expertiseViewRoute:
+      return MaterialPageRoute(builder: (context) => ExpertisePage());
     case resetPasswordViewRoute:
       return MaterialPageRoute(builder: (context) => ResetPasswordPage());
     case chatDetailsViewRoute:

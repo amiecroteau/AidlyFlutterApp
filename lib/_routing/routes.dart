@@ -8,3 +8,5 @@ const String homeViewRoute = 'home';
 const String bioViewRoute = 'bio';
 const String chatDetailsViewRoute = 'chat_details';
 const String userDetailsViewRoute = 'user_details';
+const String interestsViewRoute = 'interests';
+const String expertiseViewRoute = 'expertise';

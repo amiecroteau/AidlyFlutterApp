@@ -137,10 +137,10 @@ class _BioPageState extends State<BioPage> {
     );
 
     final submitBtn = Padding(
-      padding: EdgeInsets.only(top: 20.0),
+      padding: EdgeInsets.only(top: 10.0),
       child: Container(
         margin: EdgeInsets.only(top: 10.0, bottom: 20.0),
-        height: 60.0,
+        height: 50.0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7.0),
@@ -152,7 +152,8 @@ class _BioPageState extends State<BioPage> {
           elevation: 10.0,
           shadowColor: Colors.white70,
           child: MaterialButton(
-            onPressed: () => Navigator.of(context).pushNamed(homeViewRoute),
+            onPressed: () =>
+                Navigator.of(context).pushNamed(interestsViewRoute),
             child: Text(
               'CREATE ACCOUNT',
               style: TextStyle(
