@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_social/_routing/routes.dart';
 import 'package:flutter_social/utils/colors.dart';
@@ -11,10 +12,17 @@ class BioPage extends StatefulWidget {
 class _BioPageState extends State<BioPage> {
   final _formKey = GlobalKey<FormState>();
   int _dayRadioBtnVal = -1;
+  int _timeRadioBtnVal = -1;
 
   void _handleDayChange(int value) {
     setState(() {
       _dayRadioBtnVal = value;
+    });
+  }
+
+  void _handleTimeChange(int value) {
+    setState(() {
+      _timeRadioBtnVal = value;
     });
   }
 
@@ -38,11 +46,11 @@ class _BioPageState extends State<BioPage> {
 
     final pageTitle = Container(
       child: Text(
-        "Tell us why you want to volunteer.",
+        "Tell us your why to volunteer.",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
-          fontSize: 20.0,
+          fontSize: 30.0,
         ),
       ),
     );
@@ -65,6 +73,15 @@ class _BioPageState extends State<BioPage> {
       ),
     );
 
+    final daysT = Padding(
+      padding: EdgeInsets.only(top: 0.0),
+      child: Row(
+        children: <Widget>[
+          Text("When would you like to volunteer?"),
+        ],
+      ),
+    );
+
     final days = Padding(
       padding: EdgeInsets.only(top: 0.0),
       child: Row(
@@ -81,6 +98,40 @@ class _BioPageState extends State<BioPage> {
             onChanged: _handleDayChange,
           ),
           Text("Weekdays"),
+        ],
+      ),
+    );
+    final timesT = Padding(
+      padding: EdgeInsets.only(top: 0.0),
+      child: Row(
+        children: <Widget>[
+          Text("What time during the week would be best for you?"),
+        ],
+      ),
+    );
+
+    final times = Padding(
+      padding: EdgeInsets.only(top: 0.0),
+      child: Row(
+        children: <Widget>[
+          Radio(
+            value: 4,
+            groupValue: _timeRadioBtnVal,
+            onChanged: _handleTimeChange,
+          ),
+          Text("Mornings"),
+          Radio(
+            value: 5,
+            groupValue: _timeRadioBtnVal,
+            onChanged: _handleTimeChange,
+          ),
+          Text("Evenings"),
+          Radio(
+            value: 6,
+            groupValue: _timeRadioBtnVal,
+            onChanged: _handleTimeChange,
+          ),
+          Text("Afternoons"),
         ],
       ),
     );
@@ -126,7 +177,17 @@ class _BioPageState extends State<BioPage> {
                 padding: EdgeInsets.only(left: 30.0, right: 30.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[pageTitle, bioForm, days, submitBtn],
+                  children: <Widget>[
+                    pageTitle,
+                    bioForm,
+                    formFieldSpacing,
+                    daysT,
+                    days,
+                    formFieldSpacing,
+                    timesT,
+                    times,
+                    submitBtn
+                  ],
                 ),
               )
             ],
