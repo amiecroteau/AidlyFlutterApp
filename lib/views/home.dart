@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social/utils/colors.dart';
+import 'package:flutter_social/views/tabs/calendar.dart';
 import 'package:flutter_social/views/tabs/chats.dart';
 import 'package:flutter_social/views/tabs/feeds.dart';
 import 'package:flutter_social/views/tabs/notifications.dart';
@@ -17,6 +18,7 @@ class _HomePageState extends State<HomePage> {
     FeedsPage(),
     ChatsPage(),
     NotificationsPage(),
+    CalendarScreen(),
     ProfilePage()
   ];
 
@@ -28,7 +30,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     final bottomNavBar = BottomNavigationBar(
       onTap: onTabTapped,
       currentIndex: _currentIndex,
@@ -54,6 +55,13 @@ class _HomePageState extends State<HomePage> {
           icon: Icon(LineIcons.bell),
           title: Text(
             'Notifications',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(LineIcons.calendar),
+          title: Text(
+            'Calendar',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
