@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_social/_routing/routes.dart';
 import 'package:flutter_social/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:flutter_social/models/info.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -10,13 +11,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
-  int _genderRadioBtnVal = -1;
-
-  void _handleGenderChange(int value) {
-    setState(() {
-      _genderRadioBtnVal = value;
-    });
-  }
+  Model info = Model();
 
   @override
   Widget build(BuildContext context) {
@@ -52,20 +47,98 @@ class _RegisterPageState extends State<RegisterPage> {
     );
 
     final registerForm = Padding(
-      padding: EdgeInsets.only(top: 30.0),
+      padding: EdgeInsets.only(top: 10.0),
       child: Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
-            _buildFormField('Name', LineIcons.user),
-            formFieldSpacing,
-            _buildFormField('Email Address', LineIcons.envelope),
-            formFieldSpacing,
-            _buildFormField('Phone Number', LineIcons.mobile_phone),
-            formFieldSpacing,
-            _buildFormField('Zip Code', LineIcons.home),
-            formFieldSpacing,
-            _buildFormField('Password', LineIcons.lock),
+            _buildFormField(
+              'First Name',
+              LineIcons.user,
+              onSaved: (String value) {
+                info.firstName = value;
+              },
+            ),
+            _buildFormField(
+              'Last Name',
+              LineIcons.user,
+              onSaved: (String value) {
+                info.lastName = value;
+              },
+            ),
+            _buildFormField(
+              'Email',
+              LineIcons.envelope,
+              onSaved: (String value) {
+                info.email = value;
+              },
+            ),
+            _buildFormField(
+              'Phone Number',
+              LineIcons.mobile_phone,
+              validator: (String value) {
+                if (value.length < 11) {
+                  return 'Phone Number should be a minimum of 11 characters';
+                }
+
+                _formKey.currentState.save();
+
+                return null;
+              },
+              onSaved: (String value) {
+                info.phone = value;
+              },
+            ),
+            _buildFormField(
+              'Zip Code',
+              LineIcons.home,
+              hintText: 'Zip',
+              validator: (String value) {
+                if (value.length < 5) {
+                  return 'Zip code should be a minimum of 5 characters';
+                }
+
+                _formKey.currentState.save();
+
+                return null;
+              },
+              onSaved: (String value) {
+                info.zip = value;
+              },
+            ),
+            _buildFormField(
+              'Password',
+              LineIcons.lock,
+              isPassword: true,
+              hintText: 'Password',
+              validator: (String value) {
+                if (value.length < 7) {
+                  return 'Password should be minimum 7 characters';
+                }
+
+                _formKey.currentState.save();
+
+                return null;
+              },
+              onSaved: (String value) {
+                info.password = value;
+              },
+            ),
+            _buildFormField(
+              'Confirm Password',
+              LineIcons.unlock,
+              validator: (String value) {
+                if (value.length < 7) {
+                  return 'Password should be minimum 7 characters';
+                } else if (info.password != null && value != info.password) {
+                  print(value);
+                  print(info.password);
+                  return 'Password not matched';
+                }
+
+                return null;
+              },
+            )
           ],
         ),
       ),
@@ -122,7 +195,11 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget _buildFormField(String label, IconData icon) {
+  Widget _buildFormField(String label, IconData icon,
+      {Null Function(String value) onSaved,
+      String Function(String value) validator,
+      String hintText,
+      bool isPassword}) {
     return TextFormField(
       decoration: InputDecoration(
         labelText: label,
@@ -141,6 +218,8 @@ class _RegisterPageState extends State<RegisterPage> {
       keyboardType: TextInputType.text,
       style: TextStyle(color: Colors.black),
       cursorColor: Colors.black,
+      onSaved: onSaved,
+      validator: validator,
     );
   }
 }

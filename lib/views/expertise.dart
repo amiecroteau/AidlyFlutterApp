@@ -42,11 +42,11 @@ class _ExpertisePageState extends State<ExpertisePage> {
 
     final pageTitle = Container(
       child: Text(
-        "Tell us what you expertise you can share.",
+        "Tell what you do well.",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
-          fontSize: 15.0,
+          fontSize: 30.0,
         ),
       ),
     );

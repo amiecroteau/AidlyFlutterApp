@@ -42,11 +42,11 @@ class _InterestsPageState extends State<InterestsPage> {
 
     final pageTitle = Container(
       child: Text(
-        "Tell us what you would be interested in volunteering.",
+        "Tell what you like to do.",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
-          fontSize: 15.0,
+          fontSize: 30.0,
         ),
       ),
     );

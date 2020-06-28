@@ -46,7 +46,7 @@ class _BioPageState extends State<BioPage> {
 
     final pageTitle = Container(
       child: Text(
-        "Tell us your why to volunteer.",
+        "Tell your why.",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
@@ -60,13 +60,13 @@ class _BioPageState extends State<BioPage> {
     );
 
     final bioForm = Padding(
-      padding: EdgeInsets.only(top: 30.0),
+      padding: EdgeInsets.only(top: 10.0),
       child: Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
             _buildFormField(
-                'Write a sentence explaining who you are.', LineIcons.user),
+                'Write about why you are volunteering.', LineIcons.user),
             formFieldSpacing
           ],
         ),
@@ -181,7 +181,6 @@ class _BioPageState extends State<BioPage> {
                   children: <Widget>[
                     pageTitle,
                     bioForm,
-                    formFieldSpacing,
                     daysT,
                     days,
                     formFieldSpacing,

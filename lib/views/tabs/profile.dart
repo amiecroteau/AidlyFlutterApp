@@ -1,37 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_social/models/user.dart';
+
 import 'package:flutter_social/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:flutter_social/models/info.dart';
 
 class ProfilePage extends StatelessWidget {
-  final User user = users[0];
+  Model model;
 
+  ProfilePage({this.model});
   @override
   Widget build(BuildContext context) {
     final hr = Divider();
-    final userStats = Positioned(
-      bottom: 10.0,
-      left: 40.0,
-      right: 40.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          _buildUserStats('VISITORS', '0'),
-          _buildUserStats('LIKED', '22276'),
-          _buildUserStats('MATCHED', '0'),
-        ],
-      ),
-    );
 
     final userImage = Container(
       height: 100.0,
       width: 100.0,
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(user.photo),
-          fit: BoxFit.cover,
-        ),
         shape: BoxShape.circle,
       ),
     );
@@ -42,14 +27,14 @@ class ProfilePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            user.name,
+            model.firstName,
             style: TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.w900,
             ),
           ),
           Text(
-            user.location,
+            model.lastName,
             style: TextStyle(
               color: Colors.grey.withOpacity(0.6),
               fontSize: 20.0,
@@ -91,7 +76,6 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
         ),
-        userStats
       ],
     );
 

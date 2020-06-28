@@ -57,7 +57,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Calendar'),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.teal[900],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -68,14 +68,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
               initialCalendarFormat: CalendarFormat.month,
               calendarStyle: CalendarStyle(
                 markersColor: Colors.purple,
-                todayColor: Colors.blueGrey,
+                todayColor: Colors.teal,
                 selectedColor: Colors.blue,
                 todayStyle:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               headerStyle: HeaderStyle(
                 formatButtonDecoration: BoxDecoration(
-                  color: Colors.blueGrey,
+                  color: Colors.teal,
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 formatButtonTextStyle: TextStyle(color: Colors.white),
@@ -124,7 +124,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.teal[900],
         child: Icon(
           Icons.add,
           color: Colors.white,
