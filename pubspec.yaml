@@ -23,6 +23,7 @@ dependencies:
   line_icons: ^0.2.0
   shared_preferences: ^0.4.3
   table_calendar: ^2.2.2
+  validators: ^2.0.0+1
 
 
 

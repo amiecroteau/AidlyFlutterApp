@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_social/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:flutter_social/models/info.dart';
+import 'package:flutter_social/models/model.dart';
 
 class ProfilePage extends StatelessWidget {
-  Model model;
+  UserModel model;
 
   ProfilePage({this.model});
   @override
@@ -44,7 +44,7 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
     );
-
+// TODO: Add the variables to receive the model
     final userInfo = Stack(
       children: <Widget>[
         Padding(

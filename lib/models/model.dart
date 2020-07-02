@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Model {
+class UserModel {
   String firstName;
   String lastName;
   String phone;
@@ -8,7 +8,7 @@ class Model {
   String zip;
   String password;
 
-  Model(
+  UserModel(
       {this.firstName,
       this.lastName,
       this.phone,

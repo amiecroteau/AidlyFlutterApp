@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_social/models/model.dart';
 import 'package:flutter_social/utils/colors.dart';
 import 'package:flutter_social/views/tabs/calendar.dart';
 import 'package:flutter_social/views/tabs/chats.dart';

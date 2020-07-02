@@ -60,7 +60,7 @@ class _InterestsPageState extends State<InterestsPage> {
         Expanded(
           child: TextField(
             controller: interestsController,
-            decoration: InputDecoration(
+              decoration: InputDecoration(
               labelText: 'Add your Interest',
             ),
           ),

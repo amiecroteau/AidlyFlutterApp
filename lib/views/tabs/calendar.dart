@@ -5,6 +5,7 @@ import 'package:table_calendar/table_calendar.dart';
 
 class CalendarScreen extends StatefulWidget {
   static const String id = 'calendar_screen';
+
   @override
   _CalendarScreenState createState() => _CalendarScreenState();
 }

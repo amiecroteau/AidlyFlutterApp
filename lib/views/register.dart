@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:validators/validators.dart' as validator;
 import 'package:flutter_social/_routing/routes.dart';
 import 'package:flutter_social/utils/colors.dart';
+import 'package:flutter_social/views/tabs/profile.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:flutter_social/models/info.dart';
+import 'package:flutter_social/models/model.dart';
+import 'package:flutter_social/views/registerThankYou.dart';
+import 'package:validators/validators.dart';
+import 'Bio.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -11,7 +16,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
-  Model info = Model();
+  UserModel model = UserModel();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
-
+//TODO figure out how to test the model object data
     final formFieldSpacing = SizedBox(
       height: 30.0,
     );
@@ -56,29 +61,36 @@ class _RegisterPageState extends State<RegisterPage> {
               'First Name',
               LineIcons.user,
               onSaved: (String value) {
-                info.firstName = value;
+                model.firstName = value;
               },
             ),
             _buildFormField(
               'Last Name',
               LineIcons.user,
               onSaved: (String value) {
-                info.lastName = value;
+                model.lastName = value;
               },
             ),
             _buildFormField(
               'Email',
               LineIcons.envelope,
+              validator: (String value) {
+                value = value.trim();
+                if (!validator.isEmail(value)) {
+                  return 'Please enter a valid email';
+                }
+                return null;
+              },
               onSaved: (String value) {
-                info.email = value;
+                model.email = value;
               },
             ),
             _buildFormField(
               'Phone Number',
               LineIcons.mobile_phone,
               validator: (String value) {
-                if (value.length < 11) {
-                  return 'Phone Number should be a minimum of 11 characters';
+                if (value.length < 10) {
+                  return 'Phone Number should be a minimum of 10 characters';
                 }
 
                 _formKey.currentState.save();
@@ -86,7 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 return null;
               },
               onSaved: (String value) {
-                info.phone = value;
+                model.phone = value;
               },
             ),
             _buildFormField(
@@ -98,12 +110,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   return 'Zip code should be a minimum of 5 characters';
                 }
 
-                _formKey.currentState.save();
-
                 return null;
               },
               onSaved: (String value) {
-                info.zip = value;
+                model.zip = value;
               },
             ),
             _buildFormField(
@@ -121,18 +131,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 return null;
               },
               onSaved: (String value) {
-                info.password = value;
+                model.password = value;
               },
             ),
             _buildFormField(
               'Confirm Password',
               LineIcons.unlock,
+              isPassword: true,
               validator: (String value) {
-                if (value.length < 7) {
-                  return 'Password should be minimum 7 characters';
-                } else if (info.password != null && value != info.password) {
+                if (model.password != null && value != model.password) {
                   print(value);
-                  print(info.password);
+                  print(model.password);
                   return 'Password not matched';
                 }
 
@@ -159,17 +168,25 @@ class _RegisterPageState extends State<RegisterPage> {
           color: primaryColor,
           elevation: 10.0,
           shadowColor: Colors.white70,
-          child: MaterialButton(
-            onPressed: () => Navigator.of(context).pushNamed(bioViewRoute),
-            child: Text(
+          child: MaterialButton(onPressed: () {
+            if (_formKey.currentState.validate()) {
+              _formKey.currentState.save();
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          registerThankYouPage(model: this.model)));
+            }
+            Text(
               'CREATE ACCOUNT',
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 20.0,
                 color: Colors.white,
               ),
-            ),
-          ),
+            );
+          }),
         ),
       ),
     );
@@ -199,27 +216,70 @@ class _RegisterPageState extends State<RegisterPage> {
       {Null Function(String value) onSaved,
       String Function(String value) validator,
       String hintText,
-      bool isPassword}) {
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(color: Colors.black),
-        prefixIcon: Icon(
-          icon,
-          color: Colors.black38,
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.black38),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.orange),
-        ),
-      ),
-      keyboardType: TextInputType.text,
-      style: TextStyle(color: Colors.black),
-      cursorColor: Colors.black,
-      onSaved: onSaved,
+      bool isPassword = false,
+      Color iconColor = Colors.black38,
+      bool isEmail = true}) {
+    return FormValidator(
+      hintText: hintText,
       validator: validator,
+      onSaved: onSaved,
+      label: label,
+      icon: icon,
+      iconColor: iconColor,
+      isPassword: isPassword,
+      isEmail: isEmail,
+    );
+  }
+}
+
+class FormValidator extends StatelessWidget {
+  final String hintText;
+  final Function validator;
+  final Function onSaved;
+  final bool isPassword;
+  final bool isEmail;
+  final String label;
+  final IconData icon;
+  final Color iconColor;
+
+  FormValidator({
+    this.hintText,
+    this.validator,
+    this.onSaved,
+    this.label,
+    this.icon,
+    this.iconColor,
+    this.isPassword = false,
+    this.isEmail = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(8.0),
+      child: TextFormField(
+        decoration: InputDecoration(
+          hintText: hintText,
+          labelText: label,
+          labelStyle: TextStyle(color: Colors.black),
+          prefixIcon: Icon(
+            icon,
+            color: Colors.black38,
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.black38),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.orange),
+          ),
+        ),
+        obscureText: isPassword,
+        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
+        style: TextStyle(color: Colors.black),
+        cursorColor: Colors.black,
+        onSaved: onSaved,
+        validator: validator,
+      ),
     );
   }
 }
