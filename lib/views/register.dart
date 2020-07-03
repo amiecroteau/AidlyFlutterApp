@@ -168,25 +168,26 @@ class _RegisterPageState extends State<RegisterPage> {
           color: primaryColor,
           elevation: 10.0,
           shadowColor: Colors.white70,
-          child: MaterialButton(onPressed: () {
-            if (_formKey.currentState.validate()) {
-              _formKey.currentState.save();
-
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          registerThankYouPage(model: this.model)));
-            }
-            Text(
-              'CREATE ACCOUNT',
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 20.0,
-                color: Colors.white,
+          child: MaterialButton(
+              child: Text(
+                'CREATE ACCOUNT',
+                style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 20.0,
+                  color: Colors.white,
+                ),
               ),
-            );
-          }),
+              onPressed: () {
+                if (_formKey.currentState.validate()) {
+                  _formKey.currentState.save();
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              registerThankYouPage(model: this.model)));
+                }
+              }),
         ),
       ),
     );
