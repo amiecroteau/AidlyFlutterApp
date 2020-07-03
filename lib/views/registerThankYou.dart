@@ -12,16 +12,31 @@ class registerThankYouPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
-      appBar: AppBar(title: Text('Successful')),
+      appBar: AppBar(title: Text('Registration Confirmation')),
       body: Container(
         margin: EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            SizedBox(height: 10),
+            Text('First Name:',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             Text(model.firstName, style: TextStyle(fontSize: 22)),
+            Text('Last Name:',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             Text(model.lastName, style: TextStyle(fontSize: 22)),
+            Text('Email:',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             Text(model.email, style: TextStyle(fontSize: 22)),
+            Text('Password:',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             Text(model.password, style: TextStyle(fontSize: 22)),
+            Text('Zip:',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            Text(model.zip, style: TextStyle(fontSize: 22)),
+            Text('Phone:',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            Text(model.phone, style: TextStyle(fontSize: 22)),
             MaterialButton(
               onPressed: () {
                 Navigator.push(

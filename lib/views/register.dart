@@ -17,6 +17,20 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   UserModel model = UserModel();
+  int _dayRadioBtnVal = -1;
+  int _timeRadioBtnVal = -1;
+
+  void _handleDayChange(int value) {
+    setState(() {
+      _dayRadioBtnVal = value;
+    });
+  }
+
+  void _handleTimeChange(int value) {
+    setState(() {
+      _timeRadioBtnVal = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,9 +161,78 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 return null;
               },
-            )
+            ),
+            _buildFormField(
+                'Write about why you are volunteering.', LineIcons.user,
+                onSaved: (String value) {
+              model.statement = value;
+            }),
+            formFieldSpacing
           ],
         ),
+      ),
+    );
+
+    final daysT = Padding(
+      padding: EdgeInsets.only(top: 0.0),
+      child: Row(
+        children: <Widget>[
+          Text("When would you like to volunteer?"),
+        ],
+      ),
+    );
+
+    final days = Padding(
+      padding: EdgeInsets.only(top: 0.0),
+      child: Row(
+        children: <Widget>[
+          Radio(
+            value: 0,
+            groupValue: _dayRadioBtnVal,
+            onChanged: _handleDayChange,
+          ),
+          Text("Weekends"),
+          Radio(
+            value: 1,
+            groupValue: _dayRadioBtnVal,
+            onChanged: _handleDayChange,
+          ),
+          Text("Weekdays"),
+        ],
+      ),
+    );
+    final timesT = Padding(
+      padding: EdgeInsets.only(top: 0.0),
+      child: Row(
+        children: <Widget>[
+          Text("What time during the week would be best for you?"),
+        ],
+      ),
+    );
+
+    final times = Padding(
+      padding: EdgeInsets.only(top: 0.0),
+      child: Row(
+        children: <Widget>[
+          Radio(
+            value: 4,
+            groupValue: _timeRadioBtnVal,
+            onChanged: _handleTimeChange,
+          ),
+          Text("Mornings"),
+          Radio(
+            value: 5,
+            groupValue: _timeRadioBtnVal,
+            onChanged: _handleTimeChange,
+          ),
+          Text("Evenings"),
+          Radio(
+            value: 6,
+            groupValue: _timeRadioBtnVal,
+            onChanged: _handleTimeChange,
+          ),
+          Text("Afternoons"),
+        ],
       ),
     );
 
@@ -203,7 +286,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: EdgeInsets.only(left: 30.0, right: 30.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[pageTitle, registerForm, submitBtn],
+                  children: <Widget>[
+                    pageTitle,
+                    registerForm,
+                    daysT,
+                    days,
+                    timesT,
+                    times,
+                    submitBtn,
+                  ],
                 ),
               )
             ],

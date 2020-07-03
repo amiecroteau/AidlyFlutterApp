@@ -7,6 +7,7 @@ class UserModel {
   String email;
   String zip;
   String password;
+  String statement;
 
   UserModel(
       {this.firstName,
@@ -14,5 +15,6 @@ class UserModel {
       this.phone,
       this.email,
       this.zip,
-      this.password});
+      this.password,
+      this.statement});
 }
