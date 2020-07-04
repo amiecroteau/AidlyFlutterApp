@@ -4,7 +4,7 @@ import 'package:flutter_social/_routing/routes.dart';
 import 'package:flutter_social/models/chat.dart';
 import 'package:flutter_social/models/user.dart';
 import 'package:flutter_social/utils/colors.dart';
-
+//Template Generated
 class ChatsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -8,6 +8,8 @@ import 'package:flutter_social/models/model.dart';
 import 'package:flutter_social/views/registerThankYou.dart';
 import 'package:validators/validators.dart';
 import 'Bio.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -23,12 +25,14 @@ class _RegisterPageState extends State<RegisterPage> {
   void _handleDayChange(int value) {
     setState(() {
       _dayRadioBtnVal = value;
+      model.day = value;
     });
   }
 
   void _handleTimeChange(int value) {
     setState(() {
       _timeRadioBtnVal = value;
+      model.time = value;
     });
   }
 

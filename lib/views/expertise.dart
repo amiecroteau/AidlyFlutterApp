@@ -1,15 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_social/_routing/routes.dart';
+import 'package:flutter_social/models/model.dart';
 import 'package:flutter_social/utils/colors.dart';
+import 'package:flutter_social/views/tabs/profile.dart';
 import 'package:line_icons/line_icons.dart';
 
+import 'home.dart';
+
 class ExpertisePage extends StatefulWidget {
+  UserModel model;
+
+  ExpertisePage({this.model});
+
   @override
   _ExpertisePageState createState() => _ExpertisePageState();
 }
 
 class _ExpertisePageState extends State<ExpertisePage> {
+  UserModel model;
+
   final List<String> expertise = <String>[
     'mentoring',
     'computers',
@@ -139,7 +149,14 @@ class _ExpertisePageState extends State<ExpertisePage> {
           elevation: 10.0,
           shadowColor: Colors.white70,
           child: MaterialButton(
-            onPressed: () => Navigator.of(context).pushNamed(homeViewRoute),
+            color: primaryColor,
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProfilePage(model: this.model)));
+              Navigator.pushNamed((context), '/home');
+            },
             child: Text(
               'SUBMIT EXPERTISE',
               style: TextStyle(

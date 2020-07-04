@@ -12,6 +12,7 @@ import 'package:flutter_social/views/expertise.dart';
 import 'package:flutter_social/views/interests.dart';
 import 'package:flutter_social/views/registerThankYou.dart';
 import 'package:flutter_social/views/tabs/profile.dart';
+import 'package:flutter_social/models/model.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {

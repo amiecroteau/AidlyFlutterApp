@@ -4,7 +4,7 @@ import 'package:flutter_social/utils/colors.dart';
 
 class ChatBubble extends StatelessWidget {
   final Message message;
-
+//Template Generated
   const ChatBubble({Key key, this.message}) : super(key: key);
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_social/models/model.dart';
+import 'package:flutter_social/models/user.dart';
 import 'package:flutter_social/utils/colors.dart';
 import 'package:flutter_social/views/tabs/calendar.dart';
 import 'package:flutter_social/views/tabs/chats.dart';
@@ -15,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+
   final List<Widget> _pages = [
     FeedsPage(),
     ChatsPage(),

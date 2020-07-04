@@ -2,14 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_social/_routing/routes.dart';
 import 'package:flutter_social/utils/colors.dart';
+import 'package:flutter_social/views/expertise.dart';
+import 'package:flutter_social/views/tabs/profile.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:flutter_social/models/model.dart';
 
 class InterestsPage extends StatefulWidget {
   @override
   _InterestsPageState createState() => _InterestsPageState();
+  UserModel model;
+
+  InterestsPage({this.model});
 }
 
 class _InterestsPageState extends State<InterestsPage> {
+  UserModel model;
   final List<String> interests = <String>[
     'teaching',
     'cooking',
@@ -60,7 +67,7 @@ class _InterestsPageState extends State<InterestsPage> {
         Expanded(
           child: TextField(
             controller: interestsController,
-              decoration: InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Add your Interest',
             ),
           ),
@@ -139,8 +146,14 @@ class _InterestsPageState extends State<InterestsPage> {
           elevation: 10.0,
           shadowColor: Colors.white70,
           child: MaterialButton(
-            onPressed: () =>
-                Navigator.of(context).pushNamed(expertiseViewRoute),
+            color: primaryColor,
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProfilePage(model: this.model)));
+              Navigator.pushNamed((context), '/expertise');
+            },
             child: Text(
               'SUBMIT INTERESTS',
               style: TextStyle(

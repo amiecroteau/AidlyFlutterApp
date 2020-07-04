@@ -9,6 +9,7 @@ class ProfilePage extends StatelessWidget {
   UserModel model;
 
   ProfilePage({this.model});
+
   @override
   Widget build(BuildContext context) {
     final hr = Divider();
@@ -27,7 +28,7 @@ class ProfilePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            model.firstName,
+            (model.firstName),
             style: TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.w900,

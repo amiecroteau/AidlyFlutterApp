@@ -8,6 +8,8 @@ class UserModel {
   String zip;
   String password;
   String statement;
+  int time;
+  int day;
 
   UserModel(
       {this.firstName,
@@ -16,5 +18,26 @@ class UserModel {
       this.email,
       this.zip,
       this.password,
-      this.statement});
+      this.statement,
+      this.time,
+      this.day});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'firstName': firstName,
+      'lastName': lastName,
+      'phone': phone,
+      'email': email,
+      'zip': zip,
+      'password': password,
+      'statement': statement,
+      'time': time,
+      'day': day
+    };
+  }
+
+  @override
+  String toString() {
+    return 'User{firstName: $firstName, lastName: $lastName, phone: $phone, email:$email, zip:$zip, password:$password, statement:$statement, time:$time, day:$day}';
+  }
 }

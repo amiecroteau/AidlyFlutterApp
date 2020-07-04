@@ -11,3 +11,4 @@ const String userDetailsViewRoute = 'user_details';
 const String interestsViewRoute = 'interests';
 const String expertiseViewRoute = 'expertise';
 const String profileViewRoute = 'profile';
+const String modelViewRoute = 'model';
