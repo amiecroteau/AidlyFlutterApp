@@ -11,6 +11,8 @@ import 'package:flutter_social/views/tabs/profile.dart';
 import 'package:flutter_social/models/model.dart';
 
 class App extends StatelessWidget {
+  UserModel model;
+  App({this.model});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

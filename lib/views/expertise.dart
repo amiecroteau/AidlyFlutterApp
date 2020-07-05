@@ -8,6 +8,7 @@ import 'package:line_icons/line_icons.dart';
 
 import 'home.dart';
 
+// ignore: must_be_immutable
 class ExpertisePage extends StatefulWidget {
   UserModel model;
 
@@ -20,10 +21,7 @@ class ExpertisePage extends StatefulWidget {
 class _ExpertisePageState extends State<ExpertisePage> {
   UserModel model;
 
-  final List<String> expertise = <String>[
-    'mentoring',
-    'computers',
-  ];
+  final List<String> expertise = <String>[];
   TextEditingController expertiseController = TextEditingController();
 
   void addItemToList() {
@@ -52,7 +50,7 @@ class _ExpertisePageState extends State<ExpertisePage> {
 
     final pageTitle = Container(
       child: Text(
-        "Tell what you do well.",
+        "Hi, share your expertise.",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
@@ -63,6 +61,21 @@ class _ExpertisePageState extends State<ExpertisePage> {
 
     final formFieldSpacing = SizedBox(
       height: 20.0,
+    );
+    final example = Container(
+      child: Text(
+        "For Example:\n"
+        "sports\n"
+        "church\n"
+        "science\n"
+        "animals\n",
+        style: TextStyle(
+          fontWeight: FontWeight.w100,
+          fontStyle: FontStyle.italic,
+          color: Colors.black,
+          fontSize: 20.0,
+        ),
+      ),
     );
 
     final interestIntro = Row(
@@ -152,10 +165,8 @@ class _ExpertisePageState extends State<ExpertisePage> {
             color: primaryColor,
             onPressed: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ProfilePage(model: this.model)));
-              Navigator.pushNamed((context), '/home');
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+              //
             },
             child: Text(
               'SUBMIT EXPERTISE',
@@ -183,6 +194,8 @@ class _ExpertisePageState extends State<ExpertisePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     pageTitle,
+                    formFieldSpacing,
+                    example,
                     interestIntro,
                     interestButton,
                     interestLists,

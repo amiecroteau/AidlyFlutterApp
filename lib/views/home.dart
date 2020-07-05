@@ -9,13 +9,20 @@ import 'package:flutter_social/views/tabs/notifications.dart';
 import 'package:flutter_social/views/tabs/profile.dart';
 import 'package:line_icons/line_icons.dart';
 
+// ignore: must_be_immutable
 class HomePage extends StatefulWidget {
+  UserModel model;
+
+  HomePage({this.model});
   @override
   _HomePageState createState() => _HomePageState();
 }
 
+// ignore: must_be_immutable
+
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+  UserModel model;
 
   final List<Widget> _pages = [
     FeedsPage(),

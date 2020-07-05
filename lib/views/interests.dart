@@ -6,21 +6,19 @@ import 'package:flutter_social/views/expertise.dart';
 import 'package:flutter_social/views/tabs/profile.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_social/models/model.dart';
+import 'package:flutter_social/views/registerThankYou.dart';
 
+// ignore: must_be_immutable
 class InterestsPage extends StatefulWidget {
-  @override
-  _InterestsPageState createState() => _InterestsPageState();
   UserModel model;
 
   InterestsPage({this.model});
+  _InterestsPageState createState() => _InterestsPageState();
 }
 
 class _InterestsPageState extends State<InterestsPage> {
   UserModel model;
-  final List<String> interests = <String>[
-    'teaching',
-    'cooking',
-  ];
+  final List<String> interests = <String>[];
   TextEditingController interestsController = TextEditingController();
 
   void addItemToList() {
@@ -29,7 +27,6 @@ class _InterestsPageState extends State<InterestsPage> {
     });
   }
 
-  @override
   Widget build(BuildContext context) {
     final appBar = Padding(
       padding: EdgeInsets.only(bottom: 40.0),
@@ -49,11 +46,27 @@ class _InterestsPageState extends State<InterestsPage> {
 
     final pageTitle = Container(
       child: Text(
-        "Tell what you like to do.",
+        "Hi," + " share your interests.",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
           fontSize: 30.0,
+        ),
+      ),
+    );
+
+    final example = Container(
+      child: Text(
+        "For Example:\n"
+        "sports\n"
+        "church\n"
+        "science\n"
+        "animals\n",
+        style: TextStyle(
+          fontWeight: FontWeight.w100,
+          fontStyle: FontStyle.italic,
+          color: Colors.black,
+          fontSize: 20.0,
         ),
       ),
     );
@@ -148,11 +161,14 @@ class _InterestsPageState extends State<InterestsPage> {
           child: MaterialButton(
             color: primaryColor,
             onPressed: () {
-              Navigator.push(
+              /*Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ProfilePage(model: this.model)));
-              Navigator.pushNamed((context), '/expertise');
+                      builder: (context) => ProfilePage(model: this.model)));*/
+              Navigator.pushNamed(
+                (context),
+                '/expertise',
+              );
             },
             child: Text(
               'SUBMIT INTERESTS',
@@ -180,6 +196,8 @@ class _InterestsPageState extends State<InterestsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     pageTitle,
+                    formFieldSpacing,
+                    example,
                     interestIntro,
                     interestButton,
                     interestLists,

@@ -5,11 +5,17 @@ import 'package:flutter_social/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_social/models/model.dart';
 
-class ProfilePage extends StatelessWidget {
+// ignore: must_be_immutable
+class ProfilePage extends StatefulWidget {
   UserModel model;
 
   ProfilePage({this.model});
 
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final hr = Divider();
@@ -20,14 +26,14 @@ class ProfilePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            (model.firstName + model.lastName),
+            (widget.model.firstName + widget.model.lastName),
             style: TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.w900,
             ),
           ),
           Text(
-            model.zip,
+            widget.model.zip,
             style: TextStyle(
               color: Colors.grey.withOpacity(0.6),
               fontSize: 18.0,
@@ -35,7 +41,7 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
           Text(
-            model.phone,
+            widget.model.phone,
             style: TextStyle(
               color: Colors.grey.withOpacity(0.6),
               fontSize: 18.0,
@@ -43,7 +49,7 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
           Text(
-            model.email,
+            widget.model.email,
             style: TextStyle(
               color: Colors.grey.withOpacity(0.6),
               fontSize: 18.0,
@@ -51,7 +57,7 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
           Text(
-            model.statement,
+            widget.model.statement,
             style: TextStyle(
               color: Colors.black,
               fontSize: 20.0,

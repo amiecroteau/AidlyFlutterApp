@@ -9,6 +9,7 @@ import 'package:sqflite/sqflite.dart';
 
 import 'interests.dart';
 
+// ignore: must_be_immutable
 class registerThankYouPage extends StatelessWidget {
   UserModel model;
 
@@ -48,6 +49,9 @@ class registerThankYouPage extends StatelessWidget {
             Text('Time Available:',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             showTime(model.time),
+            Text('Volunteer Statement:',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            Text(model.statement, style: TextStyle(fontSize: 22)),
             MaterialButton(
               color: primaryColor,
               onPressed: () {
@@ -55,7 +59,10 @@ class registerThankYouPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ProfilePage(model: this.model)));
-                Navigator.pushNamed((context), '/interests');
+                Navigator.pushNamed(
+                  (context),
+                  '/interests',
+                );
               },
               child: Text(
                 'Click to Continue',
