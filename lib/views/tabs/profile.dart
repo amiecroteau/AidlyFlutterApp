@@ -14,32 +14,47 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final hr = Divider();
 
-    final userImage = Container(
-      height: 100.0,
-      width: 100.0,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-      ),
-    );
-
     final userNameLocation = Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            (model.firstName),
+            (model.firstName + model.lastName),
             style: TextStyle(
               fontSize: 24.0,
               fontWeight: FontWeight.w900,
             ),
           ),
           Text(
-            model.lastName,
+            model.zip,
             style: TextStyle(
               color: Colors.grey.withOpacity(0.6),
+              fontSize: 18.0,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Text(
+            model.phone,
+            style: TextStyle(
+              color: Colors.grey.withOpacity(0.6),
+              fontSize: 18.0,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Text(
+            model.email,
+            style: TextStyle(
+              color: Colors.grey.withOpacity(0.6),
+              fontSize: 18.0,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Text(
+            model.statement,
+            style: TextStyle(
+              color: Colors.black,
               fontSize: 20.0,
-              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -64,15 +79,8 @@ class ProfilePage extends StatelessWidget {
                 ),
                 color: Colors.white,
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20.0, bottom: 20.0),
-                child: Row(
-                  children: <Widget>[
-                    userImage,
-                    SizedBox(width: 10.0),
-                    userNameLocation
-                  ],
-                ),
+              child: Row(
+                children: <Widget>[SizedBox(width: 30.0), userNameLocation],
               ),
             ),
           ),
@@ -94,42 +102,14 @@ class ProfilePage extends StatelessWidget {
           ),
           child: Column(
             children: <Widget>[
-              _buildIconTile(Icons.favorite, Colors.red, 'Likes'),
-              hr,
-              _buildIconTile(LineIcons.eye, Colors.green, 'Visitors'),
-              hr,
-              _buildIconTile(LineIcons.users, Colors.purpleAccent, 'Groups'),
-            ],
-          ),
-        ),
-      ),
-    );
-
-    final thirdCard = Padding(
-      padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 30.0),
-      child: Material(
-        elevation: 5.0,
-        borderRadius: BorderRadius.circular(8.0),
-        shadowColor: Colors.white,
-        child: Container(
-          height: 350.0,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Column(
-            children: <Widget>[
-              _buildIconTile(LineIcons.money, Colors.red, 'My Wallet'),
-              hr,
-              _buildIconTile(LineIcons.diamond, Colors.blue, 'VIP Center'),
+              _buildIconTile(
+                  Icons.check, Colors.red, 'First Match populated here'),
               hr,
               _buildIconTile(
-                  LineIcons.user_plus, Colors.orangeAccent, 'Find Friends'),
+                  LineIcons.check, Colors.green, 'Second Match populated here'),
               hr,
-              _buildIconTile(LineIcons.user_times, Colors.black, 'Blacklist'),
-              hr,
-              _buildIconTile(
-                  LineIcons.cogs, Colors.grey.withOpacity(0.6), 'Settings'),
+              _buildIconTile(LineIcons.check, Colors.purpleAccent,
+                  'Third Match populated here'),
             ],
           ),
         ),
@@ -157,7 +137,6 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                   secondCard,
-                  thirdCard
                 ],
               ),
             ),
