@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:validators/validators.dart' as validator;
-import 'package:flutter_social/_routing/routes.dart';
-import 'package:flutter_social/utils/colors.dart';
-import 'package:flutter_social/views/tabs/profile.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:flutter_social/models/model.dart';
+import 'package:flutter_social/utils/colors.dart';
 import 'package:flutter_social/views/registerThankYou.dart';
-import 'package:validators/validators.dart';
-import 'Bio.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:validators/validators.dart' as validator;
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -118,6 +112,7 @@ class _RegisterPageState extends State<RegisterPage> {
               onSaved: (String value) {
                 model.phone = value;
               },
+              textInput: TextInputType.phone,
             ),
             _buildFormField(
               'Zip Code',
@@ -314,7 +309,8 @@ class _RegisterPageState extends State<RegisterPage> {
       String hintText,
       bool isPassword = false,
       Color iconColor = Colors.black38,
-      bool isEmail = true}) {
+      bool isEmail = true,
+      TextInputType textInput = TextInputType.text}) {
     return FormValidator(
       hintText: hintText,
       validator: validator,
@@ -324,6 +320,7 @@ class _RegisterPageState extends State<RegisterPage> {
       iconColor: iconColor,
       isPassword: isPassword,
       isEmail: isEmail,
+      textInput: textInput,
     );
   }
 }
@@ -337,6 +334,7 @@ class FormValidator extends StatelessWidget {
   final String label;
   final IconData icon;
   final Color iconColor;
+  final TextInputType textInput;
 
   FormValidator({
     this.hintText,
@@ -347,6 +345,7 @@ class FormValidator extends StatelessWidget {
     this.iconColor,
     this.isPassword = false,
     this.isEmail = false,
+    this.textInput = TextInputType.text,
   });
 
   @override
@@ -370,7 +369,7 @@ class FormValidator extends StatelessWidget {
           ),
         ),
         obscureText: isPassword,
-        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
+        keyboardType: textInput,
         style: TextStyle(color: Colors.black),
         cursorColor: Colors.black,
         onSaved: onSaved,
