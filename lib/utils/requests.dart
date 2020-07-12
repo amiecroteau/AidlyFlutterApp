@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 
+import 'constants.dart';
+
 class HttpRequests {
   static String baseUrl = "http://localhost:5000/";
 
@@ -14,7 +16,7 @@ class HttpRequests {
     );
   }
 
-  static Future<bool> login(email, password) async {
+  static Future<bool> login(String email, String password) async {
     var json =
         jsonEncode(<String, String>{'email': email, 'password': password});
 
@@ -24,10 +26,10 @@ class HttpRequests {
     if (response != null) {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        print(data);
+        Constants.prefs.setString('token', data['token']);
         return true;
       } else {
-        print('Wrong Credentials');
+        Constants.prefs.setString('token', 'Wrong Credentials')
         return false;
       }
     }
