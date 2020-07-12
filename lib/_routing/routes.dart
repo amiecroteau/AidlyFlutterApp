@@ -1,14 +1,13 @@
-const String landingViewRoute = '/';
+import 'package:flutter/material.dart';
+import 'package:aidly/views/landing.dart';
+import 'package:aidly/_routing/routeNames.dart';
 
-const String loginViewRoute = 'login';
-const String registerViewRoute = 'register';
-const String resetPasswordViewRoute = 'reset_password';
-const String thankYouViewRoute = 'thankYou';
-const String homeViewRoute = 'home';
-const String bioViewRoute = 'bio';
-const String chatDetailsViewRoute = 'chat_details';
-const String userDetailsViewRoute = 'user_details';
-const String interestsViewRoute = 'interests';
-const String expertiseViewRoute = 'expertise';
-const String profileViewRoute = 'profile';
-const String modelViewRoute = 'model';
+Route<dynamic> generateRoute(RouteSettings settings) {
+  switch (settings.name) {
+    case landingViewRoute:
+      return MaterialPageRoute(builder: (context) => LandingPage());
+
+    default:
+      return MaterialPageRoute(builder: (context) => LandingPage());
+  }
+}

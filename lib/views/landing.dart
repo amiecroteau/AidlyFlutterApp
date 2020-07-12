@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_social/_routing/routes.dart';
-import 'package:flutter_social/utils/colors.dart';
-import 'package:flutter_social/utils/utils.dart';
 import 'package:flutter/services.dart';
+import 'package:aidly/_routing/routes.dart';
+import 'package:aidly/utils/colors.dart';
+import 'package:aidly/utils/utils.dart';
 
 class LandingPage extends StatelessWidget {
   @override
@@ -42,7 +42,7 @@ class LandingPage extends StatelessWidget {
     );
 
     final loginBtn = InkWell(
-      onTap: () => Navigator.pushNamed(context, loginViewRoute),
+      onTap: () => print('clicked'),
       child: Container(
         height: 60.0,
         width: MediaQuery.of(context).size.width,
@@ -74,7 +74,7 @@ class LandingPage extends StatelessWidget {
       ),
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => Navigator.pushNamed(context, registerViewRoute),
+        onPressed: () => 'clicked',
         color: Colors.white,
         shape: new RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(7.0),
