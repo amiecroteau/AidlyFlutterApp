@@ -1,3 +1,4 @@
+import 'package:aidly/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aidly/theme.dart';
@@ -16,7 +17,7 @@ class App extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: buildThemeData(),
         onGenerateRoute: router.generateRoute,
-        initialRoute: landingViewRoute,
+        initialRoute: getStartingRoute(),
         routes: {
           '/': (context) => LandingPage(),
           // '/register': (context) => RegisterPage(),
@@ -26,5 +27,13 @@ class App extends StatelessWidget {
           // '/profile': (context) => ProfilePage(),
           // '/home': (context) => HomePage(),
         });
+  }
+
+  String getStartingRoute() {
+    // TODO: if user is logged in, return homepage, else, Landing Page
+
+    return Constants.prefs.getBool("loggedIn") == true
+        ? homeViewRoute
+        : landingViewRoute;
   }
 }
