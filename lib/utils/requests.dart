@@ -14,7 +14,7 @@ class HttpRequests {
     );
   }
 
-  static void login(email, password) async {
+  static Future<bool> login(email, password) async {
     var json =
         jsonEncode(<String, String>{'email': email, 'password': password});
 
@@ -22,8 +22,21 @@ class HttpRequests {
 
     var response = await postJson(url, json);
     if (response != null) {
-      var data = jsonDecode(response.body);
-      print(data);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        print(data);
+        return true;
+      } else {
+        print('Wrong Credentials');
+        return false;
+      }
     }
+
+    return false;
   }
+}
+
+enum requestStatus {
+  success,
+  fail,
 }

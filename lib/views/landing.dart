@@ -1,8 +1,11 @@
+import 'package:aidly/utils/constants.dart';
+import 'package:aidly/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:aidly/_routing/routes.dart';
+// import 'package:aidly/_routing/routes.dart';
 import 'package:aidly/utils/colors.dart';
 import 'package:aidly/utils/utils.dart';
+import 'package:aidly/utils/requests.dart';
 
 class LandingPage extends StatelessWidget {
   @override
@@ -42,7 +45,15 @@ class LandingPage extends StatelessWidget {
     );
 
     final loginBtn = InkWell(
-      onTap: () => print('clicked'),
+      onTap: () {
+        print('change');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
+        // print(Constants.prefs.getBool("loggedIn"));
+        // HttpRequests.login('yo@lo.comoas', 'password')
+        //     .then((value) => Constants.prefs.setBool("loggedIn", value));
+        // print(Constants.prefs.getBool("loggedIn"));
+      },
       child: Container(
         height: 60.0,
         width: MediaQuery.of(context).size.width,
