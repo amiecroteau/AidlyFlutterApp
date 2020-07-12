@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:aidly/models/loginModel.dart';
 import 'package:aidly/utils/constants.dart';
 import 'package:aidly/utils/requests.dart';
@@ -117,7 +119,12 @@ class _LoginPageState extends State<LoginPage> {
         elevation: 5.0,
         onPressed: () => {
           HttpRequests.login(model.email.text, model.password.text)
-              .then((value) => {Constants.prefs.setString('token', 'asd')})
+              .then((value) => {
+                    if (value)
+                      {
+                        // TODO: move to home feed
+                      }
+                  })
         },
         color: Colors.white,
         shape: new RoundedRectangleBorder(
