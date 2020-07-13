@@ -8,15 +8,16 @@ class UserModel {
   int time;
   int day;
 
-  UserModel(
-      {this.firstName,
-      this.lastName,
-      this.phone,
-      this.email,
-      this.zip,
-      this.statement,
-      this.time,
-      this.day});
+  UserModel({
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.phone = '',
+    this.zip = '',
+    this.statement = '',
+    this.time = 0,
+    this.day = 0,
+  });
 
   Map<String, dynamic> toMap() {
     return {
