@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 
   HomePage({this.model});
   @override
-  _HomePageState createState() => _HomePageState(model);
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -21,10 +21,6 @@ class _HomePageState extends State<HomePage> {
   UserModel model;
 
   List<Widget> _pages;
-
-  _HomePageState(UserModel model) {
-    this.model = model;
-  }
 
   void onTabTapped(int index) {
     setState(() {
@@ -35,14 +31,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     _pages = [
-      FeedsPage(),
-      FeedsPage(),
-      FeedsPage(),
-      FeedsPage(),
+      FeedsPage(widget.model),
+      FeedsPage(widget.model),
+      FeedsPage(widget.model),
+      FeedsPage(widget.model),
       // ChatsPage(),
       // NotificationsPage(),
       // CalendarScreen(),
-      ProfilePage(model),
+      ProfilePage(widget.model),
     ];
 
     final bottomNavBar = BottomNavigationBar(

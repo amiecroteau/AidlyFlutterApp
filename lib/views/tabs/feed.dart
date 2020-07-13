@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:aidly/models/userModel.dart';
 
-class FeedsPage extends StatelessWidget {
+class FeedsPage extends StatefulWidget {
+  UserModel model;
+
+  FeedsPage(UserModel model) {
+    this.model = model;
+  }
+
+  @override
+  _FeedsPageState createState() => _FeedsPageState();
+}
+
+class _FeedsPageState extends State<FeedsPage> {
   @override
   Widget build(BuildContext context) {
     final pageTitle = Padding(
