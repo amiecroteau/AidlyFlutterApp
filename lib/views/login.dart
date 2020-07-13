@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:aidly/models/loginModel.dart';
+import 'package:aidly/models/userModel.dart';
 import 'package:aidly/utils/constants.dart';
 import 'package:aidly/utils/requests.dart';
+import 'package:aidly/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_icons/line_icons.dart';
@@ -122,7 +124,20 @@ class _LoginPageState extends State<LoginPage> {
               .then((value) => {
                     if (value)
                       {
-                        // TODO: move to home feed
+                        // create UserModel to push to homepage
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage(
+                                      model: new UserModel(
+                                        firstName: Constants.prefs
+                                            .getString('firstName'),
+                                        lastName: Constants.prefs
+                                            .getString('lastName'),
+                                        email:
+                                            Constants.prefs.getString('email'),
+                                      ),
+                                    )))
                       }
                   })
         },
