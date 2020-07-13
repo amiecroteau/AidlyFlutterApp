@@ -27,9 +27,12 @@ class HttpRequests {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         Constants.prefs.setString('token', data['token']);
+        Constants.prefs.setString('firstName', data['firstName']);
+        Constants.prefs.setString('lastName', data['lastName']);
+        Constants.prefs.setString('email', email);
         return true;
       } else {
-        Constants.prefs.setString('token', 'Wrong Credentials')
+        Constants.prefs.setString('token', '');
         return false;
       }
     }
