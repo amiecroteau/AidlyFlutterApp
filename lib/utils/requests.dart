@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 import 'constants.dart';
 
 class HttpRequests {
-  static String baseUrl = "http://localhost:5000/";
+  static String baseUrl = "http://ac8cf18150f3.ngrok.io/";
 
   static Future<Response> postJson(url, json) {
     return post(
