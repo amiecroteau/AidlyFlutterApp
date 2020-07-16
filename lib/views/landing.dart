@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:aidly/utils/colors.dart';
 import 'package:aidly/utils/utils.dart';
 import 'package:aidly/utils/requests.dart';
+import 'package:aidly/views/register.dart';
 
 class LandingPage extends StatelessWidget {
   @override
@@ -75,26 +76,31 @@ class LandingPage extends StatelessWidget {
       ),
     );
 
-    final registerBtn = Container(
-      height: 60.0,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(7.0),
-        border: Border.all(color: Colors.white),
-        color: Colors.white,
-      ),
-      child: RaisedButton(
-        elevation: 5.0,
-        onPressed: () => 'clicked',
-        color: Colors.white,
-        shape: new RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(7.0),
+    final registerBtn = InkWell(
+      onTap: () {
+        print('change');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => RegisterPage()));
+        // print(Constants.prefs.getBool("loggedIn"));
+        // HttpRequests.login('yo@lo.comoas', 'password')
+        //     .then((value) => Constants.prefs.setBool("loggedIn", value));
+        // print(Constants.prefs.getBool("loggedIn"));
+      },
+      child: Container(
+        height: 60.0,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(7.0),
+          border: Border.all(color: Colors.white),
+          color: Colors.white,
         ),
-        child: Text(
-          'SIGN UP',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 20.0,
+        child: Center(
+          child: Text(
+            'SIGN UP',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 20.0,
+            ),
           ),
         ),
       ),

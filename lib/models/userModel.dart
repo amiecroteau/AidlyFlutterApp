@@ -5,6 +5,7 @@ class UserModel {
   String email;
   String zip;
   String statement;
+  String password;
   int time;
   int day;
 
@@ -17,6 +18,7 @@ class UserModel {
     this.statement = '',
     this.time = 0,
     this.day = 0,
+    this.password,
   });
 
   Map<String, dynamic> toMap() {
