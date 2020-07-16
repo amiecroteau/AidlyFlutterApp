@@ -8,6 +8,8 @@ class UserModel {
   String password;
   int time;
   int day;
+  List<String> interests;
+  List<String> expertise;
 
   UserModel({
     this.firstName,
@@ -18,7 +20,7 @@ class UserModel {
     this.statement = '',
     this.time = 0,
     this.day = 0,
-    this.password,
+    this.password = '',
   });
 
   Map<String, dynamic> toMap() {

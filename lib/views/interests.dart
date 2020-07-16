@@ -161,11 +161,8 @@ class _InterestsPageState extends State<InterestsPage> {
           child: MaterialButton(
             color: primaryColor,
             onPressed: () {
-              /*Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ProfilePage(model: this.model)));*/
-              print(widget.model.firstName);
+              // Setting Interests entered as the interest for the user model
+              widget.model.interests = interests;
               Navigator.push(
                 context,
                 MaterialPageRoute(
