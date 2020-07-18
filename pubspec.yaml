@@ -28,6 +28,8 @@ dependencies:
   shared_preferences: ^0.5.8 #used to store user auth token
   line_icons: ^0.2.0
   table_calendar: ^2.2.2
+  flutter_email_sender: ^3.0.1
+  image_picker: ^0.6.7+4
 
 
 

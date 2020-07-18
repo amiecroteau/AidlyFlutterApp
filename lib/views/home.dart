@@ -6,6 +6,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:aidly/views/tabs/calendar.dart';
 import 'package:aidly/views/tabs/feed.dart';
 import 'package:aidly/views/tabs/profile.dart';
+import 'package:aidly/views/tabs/mail.dart';
 
 // ignore: must_be_immutable
 class HomePage extends StatefulWidget {
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     _pages = [
       FeedsPage(widget.model),
-      FeedsPage(widget.model),
+      MailPage(),
       FeedsPage(widget.model),
       CalendarScreen(),
       ProfilePage(widget.model),
@@ -55,7 +56,7 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
           icon: Icon(LineIcons.comments),
           title: Text(
-            'Chats',
+            'Email',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),

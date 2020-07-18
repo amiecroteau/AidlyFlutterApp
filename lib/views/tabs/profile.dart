@@ -60,7 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Text(
             widget.model.statement,
             style: TextStyle(
-              color: Colors.black,
+              color: Colors.grey.withOpacity(0.6),
               fontSize: 20.0,
             ),
           ),

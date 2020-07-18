@@ -156,7 +156,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 if (model.password != null && value != model.password) {
                   print(value);
                   print(model.password);
-                  return 'Password not matched';
                 }
 
                 return null;
