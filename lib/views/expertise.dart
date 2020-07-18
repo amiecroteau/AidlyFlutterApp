@@ -50,11 +50,11 @@ class _ExpertisePageState extends State<ExpertisePage> {
 
     final pageTitle = Container(
       child: Text(
-        "Hi, share your expertise.",
+        "Hi, share your expertise to give as a volunteer.",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
-          fontSize: 30.0,
+          fontSize: 15.0,
         ),
       ),
     );
@@ -65,10 +65,10 @@ class _ExpertisePageState extends State<ExpertisePage> {
     final example = Container(
       child: Text(
         "For Example:\n"
-        "sports\n"
-        "church\n"
-        "science\n"
-        "animals\n",
+        "mentoring\n"
+        "cooking\n"
+        "teaching\n"
+        "computers\n",
         style: TextStyle(
           fontWeight: FontWeight.w100,
           fontStyle: FontStyle.italic,

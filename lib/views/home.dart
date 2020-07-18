@@ -3,7 +3,7 @@ import 'package:aidly/models/userModel.dart';
 import 'package:aidly/utils/colors.dart';
 import 'package:aidly/utils/constants.dart';
 import 'package:line_icons/line_icons.dart';
-
+import 'package:aidly/views/tabs/calendar.dart';
 import 'package:aidly/views/tabs/feed.dart';
 import 'package:aidly/views/tabs/profile.dart';
 
@@ -34,10 +34,7 @@ class _HomePageState extends State<HomePage> {
       FeedsPage(widget.model),
       FeedsPage(widget.model),
       FeedsPage(widget.model),
-      FeedsPage(widget.model),
-      // ChatsPage(),
-      // NotificationsPage(),
-      // CalendarScreen(),
+      CalendarScreen(),
       ProfilePage(widget.model),
     ];
 

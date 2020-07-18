@@ -27,6 +27,9 @@ dependencies:
   http: ^0.12.1 # for making http requests
   shared_preferences: ^0.5.8 #used to store user auth token
   line_icons: ^0.2.0
+  table_calendar: ^2.2.2
+
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

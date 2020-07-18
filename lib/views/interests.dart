@@ -46,11 +46,11 @@ class _InterestsPageState extends State<InterestsPage> {
 
     final pageTitle = Container(
       child: Text(
-        "Hi," + " share your interests.",
+        "Hi, share your what interests you have.",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black,
-          fontSize: 30.0,
+          fontSize: 15.0,
         ),
       ),
     );

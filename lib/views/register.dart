@@ -162,8 +162,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 return null;
               },
             ),
-            _buildFormField(
-                'Write about why you are volunteering.', LineIcons.user,
+            _buildFormField('Why are you volunteering?', LineIcons.user,
                 onSaved: (String value) {
               model.statement = value;
             }),
