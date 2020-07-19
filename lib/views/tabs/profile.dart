@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:social_share/social_share.dart';
 import 'package:aidly/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:aidly/models/userModel.dart';
+import 'dart:async';
 
 class ProfilePage extends StatefulWidget {
   UserModel model;
@@ -95,6 +96,22 @@ class _ProfilePageState extends State<ProfilePage> {
       ],
     );
 
+    final textButton = RaisedButton(
+      onPressed: () async {
+        SocialShare.shareSms(
+                "Hey, I'm looking to volunteer using Aidly. Would you like to volunteer with me?",
+                url: "\nhttps://Aidly.com/")
+            .then((data) {
+          print(data);
+        });
+      },
+      color: Colors.teal,
+      child: Icon(
+        Icons.chat,
+        color: Colors.white,
+      ),
+    );
+
     final secondCard = Padding(
       padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 30.0),
       child: Material(
@@ -144,6 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                   secondCard,
+                  textButton,
                 ],
               ),
             ),

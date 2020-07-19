@@ -55,64 +55,61 @@ class _MailPageState extends State<MailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.teal),
-      home: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: Text('Email your selected Non Profit'),
-          actions: <Widget>[
-            IconButton(
-              onPressed: send,
-              icon: Icon(Icons.send),
-            )
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: TextField(
-                    controller: _recipientController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Recipient',
-                    ),
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: Text('Email your selected Non Profit'),
+        actions: <Widget>[
+          IconButton(
+            onPressed: send,
+            icon: Icon(Icons.send),
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: _recipientController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Recipient',
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: TextField(
-                    controller: _subjectController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Subject',
-                    ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: _subjectController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Subject',
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: TextField(
-                    controller: _bodyController,
-                    maxLines: 10,
-                    decoration: InputDecoration(
-                        labelText: 'Body', border: OutlineInputBorder()),
-                  ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: _bodyController,
+                  maxLines: 10,
+                  decoration: InputDecoration(
+                      labelText: 'Body', border: OutlineInputBorder()),
                 ),
-                ...attachments.map(
-                  (item) => Text(
-                    item,
-                    overflow: TextOverflow.fade,
-                  ),
+              ),
+              ...attachments.map(
+                (item) => Text(
+                  item,
+                  overflow: TextOverflow.fade,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

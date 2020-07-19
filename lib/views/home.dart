@@ -1,3 +1,4 @@
+import 'package:aidly/views/tabs/friends.dart';
 import 'package:flutter/material.dart';
 import 'package:aidly/models/userModel.dart';
 import 'package:aidly/utils/colors.dart';
@@ -32,9 +33,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     _pages = [
-      FeedsPage(widget.model),
+      FeedsPage(),
       MailPage(),
-      FeedsPage(widget.model),
+      FriendsPage(),
       CalendarScreen(),
       ProfilePage(widget.model),
     ];
@@ -54,16 +55,16 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         BottomNavigationBarItem(
-          icon: Icon(LineIcons.comments),
+          icon: Icon(Icons.email),
           title: Text(
             'Email',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
         BottomNavigationBarItem(
-          icon: Icon(LineIcons.bell),
+          icon: Icon(Icons.group),
           title: Text(
-            'Notifications',
+            'Friends',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
