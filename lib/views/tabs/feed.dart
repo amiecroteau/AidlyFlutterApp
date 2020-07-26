@@ -37,7 +37,6 @@ class _FeedsPageState extends State<FeedsPage> {
             "\n"
             "Thank you for choosing Aidly."
             "\n"
-            "\n"
             "Below are your top 3 matches.",
             style: TextStyle(
               color: Colors.black,

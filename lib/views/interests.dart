@@ -60,7 +60,13 @@ class _InterestsPageState extends State<InterestsPage> {
         ),
       ),
     );
-
+    final divider = Divider(
+      color: Colors.black,
+      height: 20,
+      thickness: 2,
+      indent: 20,
+      endIndent: 0,
+    );
     final description = Container(
       child: Center(
         child: Text(
@@ -208,7 +214,9 @@ class _InterestsPageState extends State<InterestsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     pageTitle,
+                    divider,
                     description,
+                    divider,
                     formFieldSpacing,
                     interestIntro,
                     interestButton,

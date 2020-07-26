@@ -34,7 +34,6 @@ class _HomePageState extends State<HomePage> {
     _pages = [
       FeedsPage(widget.model),
       MailPage(),
-      FeedsPage(widget.model),
       CalendarScreen(),
       ProfilePage(widget.model),
     ];
@@ -57,13 +56,6 @@ class _HomePageState extends State<HomePage> {
           icon: Icon(Icons.mail),
           title: Text(
             'Email',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(LineIcons.bell),
-          title: Text(
-            'Notifications',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
