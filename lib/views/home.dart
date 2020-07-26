@@ -47,9 +47,9 @@ class _HomePageState extends State<HomePage> {
       elevation: 0.0,
       items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.rss_feed),
+          icon: Icon(LineIcons.thumbs_up),
           title: Text(
-            'Feed',
+            'Matches',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),

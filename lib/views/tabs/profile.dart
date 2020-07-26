@@ -34,22 +34,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           Text(
-            widget.model.zip,
-            style: TextStyle(
-              color: Colors.grey.withOpacity(0.6),
-              fontSize: 18.0,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          Text(
-            widget.model.phone,
-            style: TextStyle(
-              color: Colors.grey.withOpacity(0.6),
-              fontSize: 18.0,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          Text(
             widget.model.email,
             style: TextStyle(
               color: Colors.grey.withOpacity(0.6),
@@ -61,6 +45,22 @@ class _ProfilePageState extends State<ProfilePage> {
             widget.model.statement,
             style: TextStyle(
               color: Colors.grey.withOpacity(0.6),
+              fontSize: 20.0,
+            ),
+          ),
+          Text(
+            "\n"
+            "Completed Volunteer Positions:",
+            style: TextStyle(
+              color: Colors.black.withOpacity(0.6),
+              fontSize: 20.0,
+            ),
+          ),
+          Text(
+            "\n"
+            "Friends:",
+            style: TextStyle(
+              color: Colors.black.withOpacity(0.6),
               fontSize: 20.0,
             ),
           ),
