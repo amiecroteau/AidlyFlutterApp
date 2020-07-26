@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:aidly/_routing/routes.dart';
+//import 'package:aidly/_routing/routes.dart';
 import 'package:aidly/utils/colors.dart';
-import 'package:aidly/views/expertise.dart';
-import 'package:aidly/views/tabs/profile.dart';
-import 'package:line_icons/line_icons.dart';
+//import 'package:aidly/views/expertise.dart';
+//import 'package:aidly/views/tabs/profile.dart';
+//import 'package:line_icons/line_icons.dart';
 import 'package:aidly/models/userModel.dart';
-import 'package:aidly/views/registerThankYouPage.dart';
+//import 'package:aidly/views/registerThankYouPage.dart';
+
+import 'package:aidly/views/home.dart';
 
 // ignore: must_be_immutable
 class InterestsPage extends StatefulWidget {
@@ -29,7 +31,7 @@ class _InterestsPageState extends State<InterestsPage> {
 
   Widget build(BuildContext context) {
     final appBar = Padding(
-      padding: EdgeInsets.only(bottom: 40.0),
+      padding: EdgeInsets.only(bottom: 3.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
@@ -46,33 +48,44 @@ class _InterestsPageState extends State<InterestsPage> {
 
     final pageTitle = Container(
       child: Text(
-        "Hi, share your what interests you have.",
+        "Hi, ${widget.model.firstName} \nthanks for choosing Aidly.\n"
+        "\n"
+        "To make the best match,\nlet's find out more about you."
+        "\n",
+        textAlign: TextAlign.left,
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          color: Colors.black,
-          fontSize: 15.0,
+          color: Colors.teal,
+          fontSize: 25.0,
         ),
       ),
     );
 
-    final example = Container(
-      child: Text(
-        "For Example:\n"
-        "sports\n"
-        "church\n"
-        "science\n"
-        "animals\n",
-        style: TextStyle(
-          fontWeight: FontWeight.w100,
-          fontStyle: FontStyle.italic,
-          color: Colors.black,
-          fontSize: 20.0,
+    final description = Container(
+      child: Center(
+        child: Text(
+          "Please answer these questions with keywords that describe your interests or expertise:\n"
+          "\n"
+          "What groups are you interested in?\n"
+          "\n"
+          "What areas interest you?\n"
+          "\n"
+          "What expertise do you hold?\n"
+          "\n"
+          "What do you enjoy doing?"
+          "\n",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 17.0,
+          ),
         ),
       ),
     );
 
+//TODO: Add a tooltip to show examples.
     final formFieldSpacing = SizedBox(
-      height: 20.0,
+      height: 10.0,
     );
 
     final interestIntro = Row(
@@ -81,7 +94,7 @@ class _InterestsPageState extends State<InterestsPage> {
           child: TextField(
             controller: interestsController,
             decoration: InputDecoration(
-              labelText: 'Add your Interest',
+              labelText: 'Add your Keyword',
             ),
           ),
         ),
@@ -90,7 +103,7 @@ class _InterestsPageState extends State<InterestsPage> {
     final interestButton = Padding(
       padding: EdgeInsets.only(top: 10.0),
       child: Container(
-        margin: EdgeInsets.only(top: 10.0, bottom: 20.0),
+        margin: EdgeInsets.only(top: 10.0, bottom: 5.0),
         height: 50.0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
@@ -107,7 +120,7 @@ class _InterestsPageState extends State<InterestsPage> {
               addItemToList();
             },
             child: Text(
-              'ADD INTERESTS',
+              'ADD KEYWORD',
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 20.0,
@@ -146,8 +159,8 @@ class _InterestsPageState extends State<InterestsPage> {
     final submitBtn = Padding(
       padding: EdgeInsets.only(top: 20.0),
       child: Container(
-        margin: EdgeInsets.only(top: 10.0, bottom: 20.0),
-        height: 60.0,
+        margin: EdgeInsets.only(top: 0.0, bottom: 10.0),
+        height: 50.0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7.0),
@@ -166,11 +179,11 @@ class _InterestsPageState extends State<InterestsPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ExpertisePage(model: widget.model)),
+                    builder: (context) => HomePage(model: widget.model)),
               );
             },
             child: Text(
-              'SUBMIT INTERESTS',
+              'SUBMIT',
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 20.0,
@@ -195,12 +208,11 @@ class _InterestsPageState extends State<InterestsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     pageTitle,
+                    description,
                     formFieldSpacing,
-                    example,
                     interestIntro,
                     interestButton,
                     interestLists,
-                    formFieldSpacing,
                     submitBtn
                   ],
                 ),

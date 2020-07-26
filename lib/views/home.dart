@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         BottomNavigationBarItem(
-          icon: Icon(LineIcons.comments),
+          icon: Icon(Icons.mail),
           title: Text(
             'Email',
             style: TextStyle(fontWeight: FontWeight.bold),
