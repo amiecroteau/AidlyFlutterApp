@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
       elevation: 0.0,
       items: [
         BottomNavigationBarItem(
-          icon: Icon(LineIcons.thumbs_up),
+          icon: Icon(Icons.check),
           title: Text(
             'Matches',
             style: TextStyle(fontWeight: FontWeight.bold),
