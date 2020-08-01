@@ -57,7 +57,7 @@ class _FeedsPageState extends State<FeedsPage> {
             borderRadius: BorderRadius.circular(8.0),
             shadowColor: Colors.white,
             child: Container(
-              height: 220.0,
+              height: 200.0,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
@@ -76,7 +76,7 @@ class _FeedsPageState extends State<FeedsPage> {
     );
 
     final secondCard = Padding(
-      padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 30.0),
+      padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 20.0),
       child: Material(
         elevation: 5.0,
         borderRadius: BorderRadius.circular(8.0),
@@ -102,7 +102,62 @@ class _FeedsPageState extends State<FeedsPage> {
         ),
       ),
     );
+    final Title = Padding(
+      padding: EdgeInsets.only(right: 20.0, left: 20.0),
+      child: Container(
+        child: Text(
+          'Not seeing your favorite Non-Profit? \n\Share their information with Aidly.',
+          style: TextStyle(
+            color: Colors.red.withOpacity(1),
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w600,
+            fontSize: 16.0,
+          ),
+        ),
+      ),
+    );
 
+    final InputTitle = Padding(
+      padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 4.0),
+      child: Container(
+        child: Container(
+          height: 50,
+          child: TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'Non-Profit Name *',
+            ),
+            onSaved: (String value) {
+              // This optional block of code can be used to run
+              // code when the user saves the form.
+            },
+            validator: (String value) {
+              return value.contains('@') ? 'Do not use the @ char.' : null;
+            },
+          ),
+        ),
+      ),
+    );
+
+    final InputTitle2 = Padding(
+      padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 4.0, top: 0),
+      child: Container(
+        child: Container(
+          height: 50,
+          child: TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'Non-Profit Website *',
+            ),
+            onSaved: (String value) {
+              // This optional block of code can be used to run
+              // code when the user saves the form.
+            },
+            validator: (String value) {
+              return value.contains('@') ? 'Do not use the @ char.' : null;
+            },
+          ),
+        ),
+      ),
+    );
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -120,10 +175,13 @@ class _FeedsPageState extends State<FeedsPage> {
                         height: 250.0,
                         decoration: BoxDecoration(gradient: primaryGradient),
                       ),
-                      Positioned(top: 100, right: 0, left: 0, child: userInfo)
+                      Positioned(top: 120, right: 0, left: 0, child: userInfo)
                     ],
                   ),
                   secondCard,
+                  Title,
+                  InputTitle,
+                  InputTitle2,
                 ],
               ),
             ),
@@ -177,6 +235,20 @@ class _FeedsPageState extends State<FeedsPage> {
         ),
       ),
       trailing: Icon(LineIcons.chevron_circle_right),
+    );
+  }
+
+  Widget _buildSurveyCard(String title, InputElement) {
+    return ListTile(
+      title: Text(
+        title,
+        style: TextStyle(fontWeight: FontWeight.bold),
+        textAlign: TextAlign.left,
+      ),
+      leading: Container(
+        height: 30.0,
+        width: 30.0,
+      ),
     );
   }
 }

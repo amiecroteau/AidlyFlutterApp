@@ -34,25 +34,13 @@ class _InterestsPageState extends State<InterestsPage> {
       padding: EdgeInsets.only(bottom: 3.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-          )
-        ],
+        children: <Widget>[],
       ),
     );
 
     final pageTitle = Container(
       child: Text(
-        "Hi, ${widget.model.firstName} \nthanks for choosing Aidly.\n"
-        "\n"
-        "To make the best match,\nlet's find out more about you."
-        "\n",
-        textAlign: TextAlign.left,
+        "Hi, ${widget.model.firstName} \n",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.teal,
@@ -61,7 +49,7 @@ class _InterestsPageState extends State<InterestsPage> {
       ),
     );
     final divider = Divider(
-      color: Colors.black,
+      color: Colors.tealAccent,
       height: 20,
       thickness: 2,
       indent: 20,
@@ -78,11 +66,13 @@ class _InterestsPageState extends State<InterestsPage> {
           "\n"
           "What expertise do you hold?\n"
           "\n"
-          "What do you enjoy doing?"
+          "What do you enjoy doing?\n"
+          "\n"
+          "What causes inspire you?"
           "\n",
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.teal,
             fontSize: 17.0,
           ),
         ),
@@ -109,7 +99,7 @@ class _InterestsPageState extends State<InterestsPage> {
     final interestButton = Padding(
       padding: EdgeInsets.only(top: 10.0),
       child: Container(
-        margin: EdgeInsets.only(top: 10.0, bottom: 5.0),
+        margin: EdgeInsets.only(top: 0.0, bottom: 5.0),
         height: 50.0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
@@ -163,7 +153,7 @@ class _InterestsPageState extends State<InterestsPage> {
     );
 
     final submitBtn = Padding(
-      padding: EdgeInsets.only(top: 20.0),
+      padding: EdgeInsets.only(top: 10.0),
       child: Container(
         margin: EdgeInsets.only(top: 0.0, bottom: 10.0),
         height: 50.0,
@@ -202,6 +192,7 @@ class _InterestsPageState extends State<InterestsPage> {
     );
 
     return Scaffold(
+      appBar: AppBar(title: Text('Share Your Interests')),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.only(top: 40.0),
@@ -217,7 +208,6 @@ class _InterestsPageState extends State<InterestsPage> {
                     divider,
                     description,
                     divider,
-                    formFieldSpacing,
                     interestIntro,
                     interestButton,
                     interestLists,

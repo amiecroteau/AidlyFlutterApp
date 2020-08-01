@@ -1,11 +1,7 @@
 import 'package:aidly/views/interests.dart';
 import 'package:flutter/material.dart';
-import 'package:aidly/_routing/routes.dart';
 import 'package:aidly/models/userModel.dart';
 import 'package:aidly/utils/colors.dart';
-import 'package:aidly/views/home.dart';
-import 'package:aidly/views/tabs/profile.dart';
-import 'package:path/path.dart';
 //import 'package:aidly/sqflite.dart';
 
 //import 'interests.dart';
@@ -19,64 +15,76 @@ class registerThankYouPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
-      appBar: AppBar(title: Text('Registration Confirmation')),
+      appBar: AppBar(title: Text('Thank You For Your Registration')),
       body: Container(
         margin: EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: 10),
-            Text('First Name:',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            Text(model.firstName, style: TextStyle(fontSize: 22)),
-            Text('Last Name:',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            Text(model.lastName, style: TextStyle(fontSize: 22)),
-            Text('Email:',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            Text(model.email, style: TextStyle(fontSize: 22)),
-            Text('Password:',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            Text(model.password, style: TextStyle(fontSize: 22)),
-            Text('Zip:',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            Text(model.zip, style: TextStyle(fontSize: 22)),
-            Text('Phone:',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            Text(model.phone, style: TextStyle(fontSize: 22)),
-            Text('Days Available:',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            showDay(model.day),
-            Text('Time Available:',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            showTime(model.time),
-            Text('Volunteer Statement:',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            Text(model.statement, style: TextStyle(fontSize: 22)),
-            MaterialButton(
-              color: primaryColor,
-              onPressed: () {
-                print(this.model.firstName);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            InterestsPage(model: this.model)));
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                "Hi, ${model.firstName}\n\nPlease Verify your Information is correct:\n",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.teal,
+                  fontSize: 20.0,
+                ),
+              ),
+              SizedBox(height: 1),
+              Text('First Name:',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text(model.firstName, style: TextStyle(fontSize: 22)),
+              Text('Last Name:',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text(model.lastName, style: TextStyle(fontSize: 22)),
+              Text('Email:',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text(model.email, style: TextStyle(fontSize: 22)),
+              Text('Password:',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text(model.password, style: TextStyle(fontSize: 22)),
+              Text('Zip:',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text(model.zip, style: TextStyle(fontSize: 22)),
+              Text('Phone:',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text(model.phone, style: TextStyle(fontSize: 22)),
+              Text('Days Available:',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              showDay(model.day),
+              Text('Time Available:',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              showTime(model.time),
+              Text('Volunteer Statement:',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text(model.statement, style: TextStyle(fontSize: 22)),
+              MaterialButton(
+                color: primaryColor,
+                onPressed: () {
+                  print(this.model.firstName);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              InterestsPage(model: this.model)));
 //                Navigator.pushNamed(
 //                  (context),
 //                  '/interests',
 //                );
-              },
-              child: Text(
-                'Click to Continue',
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 20.0,
-                  color: Colors.white,
+                },
+                child: Center(
+                  child: Text(
+                    'Click to Continue',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 20.0,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     ));

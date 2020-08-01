@@ -1,4 +1,3 @@
-import 'package:aidly/views/expertise.dart';
 import 'package:aidly/views/interests.dart';
 import 'package:aidly/views/login.dart';
 import 'package:aidly/views/registerThankYouPage.dart';
@@ -19,8 +18,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => registerThankYouPage());
     case interestsViewRoute:
       return MaterialPageRoute(builder: (context) => InterestsPage());
-    case expertiseViewRoute:
-      return MaterialPageRoute(builder: (context) => ExpertisePage());
 
     default:
       return MaterialPageRoute(builder: (context) => LandingPage());
