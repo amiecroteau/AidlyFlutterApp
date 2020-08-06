@@ -91,6 +91,7 @@ class _FeedsPageState extends State<FeedsPage> {
             children: <Widget>[
               _buildIconTile(
                   Icons.check, Colors.red, 'First Match populated here'),
+              //TODO: Render Organization Name, Address, Zip, Website, Email. When user clicks they need to either have email app or email in the app pop up.
               hr,
               _buildIconTile(
                   LineIcons.check, Colors.green, 'Second Match populated here'),
@@ -106,6 +107,7 @@ class _FeedsPageState extends State<FeedsPage> {
       padding: EdgeInsets.only(right: 20.0, left: 20.0),
       child: Container(
         child: Text(
+          //TODO: Create a new model for these non-Profits and send this value to it. Need Submission button
           'Not seeing your favorite Non-Profit? \n\Share their information with Aidly.',
           style: TextStyle(
             color: Colors.red.withOpacity(1),

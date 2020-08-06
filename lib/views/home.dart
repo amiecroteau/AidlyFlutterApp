@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:aidly/models/userModel.dart';
 import 'package:aidly/utils/colors.dart';
-import 'package:aidly/utils/constants.dart';
+//import 'package:aidly/utils/constants.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:aidly/views/tabs/calendar.dart';
-import 'package:aidly/views/tabs/feed.dart';
+import 'package:aidly/views/tabs/matches.dart';
 import 'package:aidly/views/tabs/profile.dart';
 import 'package:aidly/views/tabs/mail.dart';
 

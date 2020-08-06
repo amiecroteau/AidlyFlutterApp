@@ -104,6 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           child: Column(
             children: <Widget>[
+              //TODO: Send value of rating to model to be pulled by database
               _buildIconTile('BBBS of Berks County'),
               hr,
               Text("Rate your volunteer experience:"),
