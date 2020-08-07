@@ -4,6 +4,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:aidly/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:aidly/models/userModel.dart';
+import 'package:aidly/models/orgModel.dart';
 
 class ProfilePage extends StatefulWidget {
   UserModel model;

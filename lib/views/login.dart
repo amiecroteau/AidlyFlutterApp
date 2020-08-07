@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:aidly/models/loginModel.dart';
 import 'package:aidly/models/userModel.dart';
 import 'package:aidly/utils/constants.dart';
@@ -8,7 +7,6 @@ import 'package:aidly/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_icons/line_icons.dart';
-
 import 'package:aidly/utils/colors.dart';
 
 class LoginPage extends StatefulWidget {
@@ -120,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () => {
-          HttpRequests.login(model.email.text, model.password.text)
+          HttpRequestsLogin.login(model.email.text, model.password.text)
               .then((value) => {
                     if (value)
                       {

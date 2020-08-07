@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:ffi';
+import 'dart:io';
 import 'package:http/http.dart';
 
 import 'constants.dart';
@@ -30,6 +32,65 @@ class HttpRequests {
         Constants.prefs.setString('firstName', data['firstName']);
         Constants.prefs.setString('lastName', data['lastName']);
         Constants.prefs.setString('email', email);
+        return true;
+      } else {
+        Constants.prefs.setString('token', '');
+        return false;
+      }
+    }
+
+    return false;
+  }
+
+  static Future<Response> getJson(
+    url,
+    json,
+  ) {
+    return get(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      },
+      body: json,
+    );
+  }
+
+  static Future<bool> organization(
+      String name,
+      String mainContact,
+      String street,
+      String city,
+      String state,
+      String zip,
+      String percentage_match,
+      String primary_phone,
+      String main_email) async {
+    var json = jsonEncode(<String, String>{
+      'name': name,
+      'street': street,
+      'city': city,
+      'state': state,
+      'zip': zip,
+      'percentage_match': percentage_match,
+      'primary_phone': primary_phone,
+      'main_email': main_email,
+    });
+
+    var url = baseUrl + "user/token";
+
+    var response = await getJson(url, json);
+    if (response != null) {
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body);
+        Constants.prefs.setString('token', data['token']);
+        Constants.prefs.setString('street', data['street']);
+        Constants.prefs.setString('city', data['city']);
+        Constants.prefs.setString('state', data['state']);
+        Constants.prefs.setString('zip', data['zip']);
+        Constants.prefs.setString('percentage_match', data['percentage_match']);
+        Constants.prefs.setString('primary_phone', data['primary_phone']);
+        Constants.prefs.setString('main_email', data['main_email']);
+
         return true;
       } else {
         Constants.prefs.setString('token', '');
