@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () => {
-          HttpRequestsLogin.login(model.email.text, model.password.text)
+          HttpRequests.login(model.email.text, model.password.text)
               .then((value) => {
                     if (value)
                       {
