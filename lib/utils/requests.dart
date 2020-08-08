@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'dart:ffi';
+import 'dart:io';
 import 'package:aidly/models/orgModel.dart';
 import 'package:http/http.dart';
 
 import 'constants.dart';
 
 class HttpRequests {
-  @override
   static String baseUrl = "http://165.227.87.42:1234/";
 
   static Future<Response> postJson(url, json) {
@@ -42,25 +43,36 @@ class HttpRequests {
     return false;
   }
 
-  static Future<Response> getJson(url, json) {
+  static Future<Response> getJsonWithJson(
+    url,
+    json,
+  ) {
     return get(
       url,
       headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json; charset=UTF-8'
+      },
+//      body: json,
+    );
+  }
+
+  static Future<Response> getJson(url) {
+    return get(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
       },
     );
   }
 
   static Future<List<OrgModel>> organization() async {
-    var json = jsonEncode(<String, String>{});
-
     var url = baseUrl + "company/userMatches";
 
-    var response = await getJson(url, json);
-
+    var response = await getJson(url);
     if (response != null) {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
+
         var orgs = data["organizations"];
         List<OrgModel> orgList = new List<OrgModel>();
         for (int x = 0; x < orgs.length; x++) {
@@ -76,13 +88,13 @@ class HttpRequests {
         }
         print(orgList);
         return orgList;
+      } else {
+        Constants.prefs.setString('token', '');
+        return new List<OrgModel>();
       }
-
-      return new List<OrgModel>();
-    } else {
-      Constants.prefs.setString('token', '');
-      return new List<OrgModel>();
     }
+
+    return new List<OrgModel>();
   }
 }
 
