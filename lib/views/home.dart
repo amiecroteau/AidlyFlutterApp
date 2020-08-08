@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     _pages = [
       FeedsPage(widget.model),
-      MailPage(),
+      MailPage(""),
       CalendarScreen(),
       ProfilePage(widget.model),
     ];

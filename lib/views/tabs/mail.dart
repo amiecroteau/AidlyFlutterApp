@@ -4,6 +4,12 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 //void main() => runApp(MailPage());
 
 class MailPage extends StatefulWidget {
+  String DestinationEmail;
+
+  MailPage(String dest) {
+    this.DestinationEmail = dest;
+  }
+
   @override
   _MailPageState createState() => _MailPageState();
 }
@@ -12,18 +18,18 @@ class _MailPageState extends State<MailPage> {
   List<String> attachments = [];
   bool isHTML = false;
 
-  final _recipientController = TextEditingController();
+  var _recipientController = TextEditingController();
 
-  final _subjectController = TextEditingController(text: 'The subject');
-
+  final _subjectController =
+      TextEditingController(text: 'Aidly Referral: New Volunteer Inquiry');
   final _bodyController = TextEditingController(
-    text: 'Mail body.',
+    text: '',
   );
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<void> send() async {
-    final Email email = Email(
+    Email email = Email(
       body: _bodyController.text,
       subject: _subjectController.text,
       recipients: [_recipientController.text],
@@ -49,6 +55,9 @@ class _MailPageState extends State<MailPage> {
 
   @override
   Widget build(BuildContext context) {
+    _recipientController.text = widget.DestinationEmail;
+
+    setState(() {});
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -103,6 +112,17 @@ class _MailPageState extends State<MailPage> {
                   overflow: TextOverflow.fade,
                 ),
               ),
+              RaisedButton(
+                onPressed: send,
+                child: Text(
+                  'Send email',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  ),
+                ),
+                color: Colors.teal,
+              )
             ],
           ),
         ),

@@ -284,12 +284,12 @@ class _FeedsPageState extends State<FeedsPage> {
         ),
       ),
       trailing: Icon(LineIcons.chevron_circle_right),
-//      onTap: () => Navigator.push(
-//        context,
-//        MaterialPageRoute(
-//          builder: (context) => MailPage(orgsList),
-//        ),
-//      ),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MailPage(main_email),
+        ),
+      ),
     );
   }
 
