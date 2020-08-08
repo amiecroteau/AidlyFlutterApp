@@ -1,14 +1,20 @@
+import 'package:aidly/models/orgModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aidly/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:aidly/models/userModel.dart';
+import 'package:aidly/utils/requests.dart';
+
+import 'mail.dart';
 
 class FeedsPage extends StatefulWidget {
+  Future<List<OrgModel>> orgsList;
   UserModel model;
 
   FeedsPage(UserModel model) {
+    this.orgsList = HttpRequests.organization();
     this.model = model;
   }
 
@@ -20,7 +26,6 @@ class _FeedsPageState extends State<FeedsPage> {
   @override
   Widget build(BuildContext context) {
     final hr = Divider();
-
     final userNameLocation = Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -82,23 +87,41 @@ class _FeedsPageState extends State<FeedsPage> {
         borderRadius: BorderRadius.circular(8.0),
         shadowColor: Colors.white,
         child: Container(
-          height: 200.0,
+          height: 480.0,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8.0),
           ),
-          child: Column(
-            children: <Widget>[
-              _buildIconTile(
-                  Icons.check, Colors.red, 'First Match populated here'),
-              //TODO: Render Organization Name, Address, Zip, Website, Email. When user clicks they need to either have email app or email in the app pop up.
-              hr,
-              _buildIconTile(
-                  LineIcons.check, Colors.green, 'Second Match populated here'),
-              hr,
-              _buildIconTile(LineIcons.check, Colors.purpleAccent,
-                  'Third Match populated here'),
-            ],
+          child: FutureBuilder<List<OrgModel>>(
+            future: widget.orgsList,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                for (int x = 0; x < snapshot.data.length; x++) {}
+                return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    OrgModel org = snapshot.data[index];
+                    return Column(
+                      children: <Widget>[
+                        _buildIconTile(
+                            LineIcons.check,
+                            Colors.red,
+                            org.name,
+                            org.main_email,
+                            org.street,
+                            org.city,
+                            org.state,
+                            org.zip,
+                            org.phone,
+                            org.percentage_match),
+                        hr,
+                      ],
+                    );
+                  },
+                );
+              }
+              return CircularProgressIndicator();
+            },
           ),
         ),
       ),
@@ -216,11 +239,37 @@ class _FeedsPageState extends State<FeedsPage> {
     );
   }
 
-  Widget _buildIconTile(IconData icon, Color color, String title) {
+  Widget _buildIconTile(
+      IconData icon,
+      Color color,
+      String name,
+      String main_email,
+      String street,
+      String city,
+      String state,
+      String zip,
+      String phone,
+      double percentage_match) {
     return ListTile(
       title: Text(
-        title,
+        name,
         style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      subtitle: Align(
+        alignment: Alignment.centerLeft,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Email: $main_email'),
+              Text('Street Address: $street'),
+              Text('City: $city'),
+              Text('State: $state'),
+              Text('Zip: $zip'),
+              Text('Phone: $phone'),
+              Text('Match: $percentage_match',
+                  style: TextStyle(fontWeight: FontWeight.bold))
+            ]),
       ),
       leading: Container(
         height: 30.0,
@@ -229,14 +278,18 @@ class _FeedsPageState extends State<FeedsPage> {
           color: color,
           borderRadius: BorderRadius.circular(10.0),
         ),
-        child: Center(
-          child: Icon(
-            icon,
-            color: Colors.white,
-          ),
+        child: Icon(
+          icon,
+          color: Colors.white,
         ),
       ),
       trailing: Icon(LineIcons.chevron_circle_right),
+//      onTap: () => Navigator.push(
+//        context,
+//        MaterialPageRoute(
+//          builder: (context) => MailPage(orgsList),
+//        ),
+//      ),
     );
   }
 

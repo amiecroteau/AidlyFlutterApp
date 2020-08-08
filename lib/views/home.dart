@@ -1,3 +1,4 @@
+import 'package:aidly/models/orgModel.dart';
 import 'package:flutter/material.dart';
 import 'package:aidly/models/userModel.dart';
 import 'package:aidly/utils/colors.dart';
@@ -11,8 +12,9 @@ import 'package:aidly/views/tabs/mail.dart';
 // ignore: must_be_immutable
 class HomePage extends StatefulWidget {
   UserModel model;
+  OrgModel orgsList;
 
-  HomePage({this.model});
+  HomePage({this.model, this.orgsList});
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -20,7 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   UserModel model;
-
+  List<OrgModel> orgsList;
   List<Widget> _pages;
 
   void onTabTapped(int index) {

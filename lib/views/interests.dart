@@ -7,7 +7,7 @@ import 'package:aidly/utils/colors.dart';
 //import 'package:line_icons/line_icons.dart';
 import 'package:aidly/models/userModel.dart';
 //import 'package:aidly/views/registerThankYouPage.dart';
-
+import 'package:aidly/utils/requests.dart';
 import 'package:aidly/views/home.dart';
 
 // ignore: must_be_immutable
@@ -170,8 +170,11 @@ class _InterestsPageState extends State<InterestsPage> {
           child: MaterialButton(
             color: primaryColor,
             onPressed: () {
-              // Setting Interests entered as the interest for the user model
+              HttpRequests
+                  .organization(); // Setting Interests entered as the interest for the user model
+
               widget.model.interests = interests;
+
               Navigator.push(
                 context,
                 MaterialPageRoute(

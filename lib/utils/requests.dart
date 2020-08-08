@@ -1,12 +1,12 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
+import 'package:aidly/models/orgModel.dart';
 import 'package:http/http.dart';
 
 import 'constants.dart';
 
 class HttpRequests {
-  static String baseUrl = "http://ac8cf18150f3.ngrok.io/";
+  @override
+  static String baseUrl = "http://165.227.87.42:1234/";
 
   static Future<Response> postJson(url, json) {
     return post(
@@ -42,63 +42,47 @@ class HttpRequests {
     return false;
   }
 
-  static Future<Response> getJson(
-    url,
-    json,
-  ) {
+  static Future<Response> getJson(url, json) {
     return get(
       url,
       headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8'
+        'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: json,
     );
   }
 
-  static Future<bool> organization(
-      String name,
-      String mainContact,
-      String street,
-      String city,
-      String state,
-      String zip,
-      String percentage_match,
-      String primary_phone,
-      String main_email) async {
-    var json = jsonEncode(<String, String>{
-      'name': name,
-      'street': street,
-      'city': city,
-      'state': state,
-      'zip': zip,
-      'percentage_match': percentage_match,
-      'primary_phone': primary_phone,
-      'main_email': main_email,
-    });
+  static Future<List<OrgModel>> organization() async {
+    var json = jsonEncode(<String, String>{});
 
-    var url = baseUrl + "user/token";
+    var url = baseUrl + "company/userMatches";
 
     var response = await getJson(url, json);
+
     if (response != null) {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        Constants.prefs.setString('token', data['token']);
-        Constants.prefs.setString('street', data['street']);
-        Constants.prefs.setString('city', data['city']);
-        Constants.prefs.setString('state', data['state']);
-        Constants.prefs.setString('zip', data['zip']);
-        Constants.prefs.setString('percentage_match', data['percentage_match']);
-        Constants.prefs.setString('primary_phone', data['primary_phone']);
-        Constants.prefs.setString('main_email', data['main_email']);
-
-        return true;
-      } else {
-        Constants.prefs.setString('token', '');
-        return false;
+        var orgs = data["organizations"];
+        List<OrgModel> orgList = new List<OrgModel>();
+        for (int x = 0; x < orgs.length; x++) {
+          orgList.add(OrgModel(
+              orgs[x]['name'],
+              orgs[x]['main_email'],
+              orgs[x]['street'],
+              orgs[x]['city'],
+              orgs[x]['state'],
+              orgs[x]['zip'],
+              orgs[x]['phone'],
+              orgs[x]['percentage_match'].toDouble()));
+        }
+        print(orgList);
+        return orgList;
       }
-    }
 
-    return false;
+      return new List<OrgModel>();
+    } else {
+      Constants.prefs.setString('token', '');
+      return new List<OrgModel>();
+    }
   }
 }
 

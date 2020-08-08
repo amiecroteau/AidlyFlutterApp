@@ -1,10 +1,6 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:image_picker/image_picker.dart';
-
 //void main() => runApp(MailPage());
 
 class MailPage extends StatefulWidget {
@@ -16,9 +12,7 @@ class _MailPageState extends State<MailPage> {
   List<String> attachments = [];
   bool isHTML = false;
 
-  final _recipientController = TextEditingController(
-    text: 'example@example.com',
-  );
+  final _recipientController = TextEditingController();
 
   final _subjectController = TextEditingController(text: 'The subject');
 
