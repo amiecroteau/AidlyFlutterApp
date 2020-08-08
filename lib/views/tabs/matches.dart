@@ -287,7 +287,7 @@ class _FeedsPageState extends State<FeedsPage> {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => MailPage(main_email),
+          builder: (context) => MailPage(main_email, widget.model),
         ),
       ),
     );

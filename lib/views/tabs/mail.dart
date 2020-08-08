@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:aidly/models/userModel.dart';
 //void main() => runApp(MailPage());
 
 class MailPage extends StatefulWidget {
   String DestinationEmail;
+  UserModel model;
 
-  MailPage(String dest) {
+  MailPage(String dest, UserModel model) {
     this.DestinationEmail = dest;
+    this.model = model;
   }
 
   @override
@@ -22,9 +25,9 @@ class _MailPageState extends State<MailPage> {
 
   final _subjectController =
       TextEditingController(text: 'Aidly Referral: New Volunteer Inquiry');
-  final _bodyController = TextEditingController(
-    text: '',
-  );
+  var _bodyController = TextEditingController(
+      text:
+          'Hi, I found your non-profit organization on Aidly.\n I am interested in your open volunteer positions\n');
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -56,6 +59,9 @@ class _MailPageState extends State<MailPage> {
   @override
   Widget build(BuildContext context) {
     _recipientController.text = widget.DestinationEmail;
+    _bodyController.text =
+        'Hi, my name is ${widget.model.firstName} ${widget.model.lastName} \n \nI found your non-profit organization on Aidly.\nI am interested in your open volunteer positions\n \nI am available during '
+        '${showDay(widget.model.day)} in the ${showTime(widget.model.time)}.\n \nPlease reach out to me in response to this email or at ${widget.model.phone}.';
 
     setState(() {});
     return Scaffold(
@@ -115,7 +121,7 @@ class _MailPageState extends State<MailPage> {
               RaisedButton(
                 onPressed: send,
                 child: Text(
-                  'Send email',
+                  'Send Email',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
@@ -128,5 +134,23 @@ class _MailPageState extends State<MailPage> {
         ),
       ),
     );
+  }
+
+  showDay(int day) {
+    if (widget.model.day == 0) {
+      return 'weekends';
+    } else {
+      return 'weekdays';
+    }
+  }
+
+  showTime(int time) {
+    if (widget.model.time == 4) {
+      return 'mornings';
+    } else if (widget.model.time == 5) {
+      return 'afternoons';
+    } else {
+      return 'evenings';
+    }
   }
 }
