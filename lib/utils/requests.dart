@@ -42,7 +42,7 @@ class HttpRequests {
     return false;
   }
 
-  static Future<Response> getJson(
+  static Future<Response> getJsonWithJson(
     url,
     json,
   ) {
@@ -51,7 +51,16 @@ class HttpRequests {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8'
       },
-      body: json,
+//      body: json,
+    );
+  }
+
+  static Future<Response> getJson(url) {
+    return get(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      },
     );
   }
 
@@ -78,7 +87,7 @@ class HttpRequests {
 
     var url = baseUrl + "user/token";
 
-    var response = await getJson(url, json);
+    var response = await getJsonWithJson(url, json);
     if (response != null) {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
