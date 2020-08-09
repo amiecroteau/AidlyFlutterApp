@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'package:aidly/views/interests.dart';
 import 'package:flutter/material.dart';
 import 'package:aidly/models/userModel.dart';
 import 'package:aidly/utils/colors.dart';
+import 'package:aidly/utils/requests.dart';
+import 'package:http/http.dart';
+import 'package:aidly/utils/constants.dart';
 //import 'package:aidly/sqflite.dart';
 
 //import 'interests.dart';
@@ -62,15 +66,46 @@ class registerThankYouPage extends StatelessWidget {
                 color: primaryColor,
                 onPressed: () {
                   print(this.model.firstName);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              InterestsPage(model: this.model)));
-//                Navigator.pushNamed(
-//                  (context),
-//                  '/interests',
-//                );
+                  new Future(()=>null).then((value) => pushData(this.model)).then((value) {
+                    print(value);
+                    if(value['status'] == 'success') {
+                      Constants.prefs.setString('token', value['auth_token']);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  InterestsPage(model: this.model)));
+                    } else {
+                      showDialog<Null>(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return new AlertDialog(
+                            title: new Text('Registration Failed'),
+                            content: new SingleChildScrollView(
+                              child: new ListBody(
+                                children: <Widget>[
+                                  new Text('Sorry, your registration failed. Please try again.'),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              new FlatButton(
+                                child: new Text('Confirm'),
+                                onPressed: () {
+                                  Navigator.of(context)..pop()..pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
+//                    Navigator.pushNamed(
+//                      (context),
+//                      '/interests',
+//                    );
+                  });
                 },
                 child: Center(
                   child: Text(
@@ -112,4 +147,11 @@ class registerThankYouPage extends StatelessWidget {
       return time;
     }
   }
+
+  Future<Map<String, dynamic>> pushData(UserModel model) async {
+    Response res = await HttpRequests.postJson("http://165.227.87.42:1234/user/create", json.encode(model.toMap()));
+    Map<String, dynamic> resJson = json.decode(res.body);
+    return resJson;
+  }
+
 }

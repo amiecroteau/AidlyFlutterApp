@@ -25,14 +25,13 @@ class UserModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'firstName': firstName,
-      'lastName': lastName,
-      'phone': phone,
+      'first_name': firstName,
+      'last_name': lastName,
+      'phone_number': phone,
       'email': email,
-      'zip': zip,
-      'statement': statement,
-      'time': time,
-      'day': day
+      'zipcode': zip,
+      'mission_statement': statement,
+      'password': password,
     };
   }
 
