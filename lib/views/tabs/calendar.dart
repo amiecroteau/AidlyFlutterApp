@@ -60,7 +60,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
   // retrieve events
   retrieveEvents() async {
     //await initPrefs();
-    Response res = await HttpRequests.getJson("http://165.227.87.42:1234/user/events");
+    Response res =
+        await HttpRequests.getJson("http://165.227.87.42:1234/user/events");
     List eventsJson = json.decode(res.body)['events'];
     eventsJson.forEach((element) {
       DateTime date = DateTime.parse(element['date']);
@@ -107,7 +108,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
               calendarController: _calendarController,
               onDaySelected: (date, events) {
                 setState(() {
-                  print(date.toIso8601String());
+                  // print(date.toIso8601String());
                   _selectedEvents = events;
                 });
               },
