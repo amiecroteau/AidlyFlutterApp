@@ -86,7 +86,6 @@ class HttpRequests {
               orgs[x]['phone'],
               orgs[x]['percentage_match'].toDouble()));
         }
-        print(orgList);
         return orgList;
       } else {
         Constants.prefs.setString('token', '');

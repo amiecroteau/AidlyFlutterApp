@@ -47,8 +47,6 @@ class LandingPage extends StatelessWidget {
 
     final loginBtn = InkWell(
       onTap: () {
-        print('change');
-        //HttpRequests.organization();
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginPage()));
         // print(Constants.prefs.getBool("loggedIn"));
@@ -79,7 +77,6 @@ class LandingPage extends StatelessWidget {
 
     final registerBtn = InkWell(
       onTap: () {
-        print('change');
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => RegisterPage()));
         // print(Constants.prefs.getBool("loggedIn"));

@@ -139,10 +139,9 @@ class _RegisterPageState extends State<RegisterPage> {
               LineIcons.unlock,
               isPassword: true,
               validator: (String value) {
-                if (model.password != null && value != model.password) {
-                  print(value);
-                  print(model.password);
-                }
+                // if (model.password != null && value != model.password) {
+
+                // }
 
                 return null;
               },
@@ -247,8 +246,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
 
-                  print('button pressed');
-                  print(this.model.firstName);
+                  // print('button pressed');
+                  // print(this.model.firstName);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
