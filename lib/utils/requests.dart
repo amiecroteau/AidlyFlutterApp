@@ -19,17 +19,26 @@ class HttpRequests {
     );
   }
 
+  static Future<Response> postJsonAuthenticated(url, json, token) {
+    return post(url,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': 'Bearer ' + token,
+        },
+        body: json);
+  }
+
   static Future<bool> login(String email, String password) async {
     var json =
         jsonEncode(<String, String>{'email': email, 'password': password});
 
-    var url = baseUrl + "user/token";
+    var url = baseUrl + "user/login";
 
     var response = await postJson(url, json);
     if (response != null) {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
-        Constants.prefs.setString('token', data['token']);
+        Constants.prefs.setString('token', data['auth_token']);
         Constants.prefs.setString('firstName', data['firstName']);
         Constants.prefs.setString('lastName', data['lastName']);
         Constants.prefs.setString('email', email);
@@ -65,8 +74,18 @@ class HttpRequests {
     );
   }
 
-  static Future<List<OrgModel>> organization() async {
-    var url = baseUrl + "company/userMatches";
+  static Future<Response> getJsonAuthenticated(url, token) {
+    return get(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ' + token,
+      },
+    );
+  }
+
+  static Future<List<OrgModel>> organization(token) async {
+    var url = baseUrl + "company/matches";
 
     var response = await getJson(url);
     if (response != null) {
