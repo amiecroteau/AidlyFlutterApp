@@ -9,6 +9,10 @@ import 'package:aidly/models/userModel.dart';
 //import 'package:aidly/views/registerThankYouPage.dart';
 import 'package:aidly/utils/requests.dart';
 import 'package:aidly/views/home.dart';
+import 'package:aidly/utils/constants.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart';
 
 // ignore: must_be_immutable
 class InterestsPage extends StatefulWidget {
@@ -20,7 +24,7 @@ class InterestsPage extends StatefulWidget {
 
 class _InterestsPageState extends State<InterestsPage> {
   UserModel model;
-  final List<String> interests = <String>[];
+  List<String> interests = <String>[];
   TextEditingController interestsController = TextEditingController();
 
   void addItemToList() {
@@ -170,16 +174,42 @@ class _InterestsPageState extends State<InterestsPage> {
           child: MaterialButton(
             color: primaryColor,
             onPressed: () {
-              HttpRequests
-                  .organization(); // Setting Interests entered as the interest for the user model
-
               widget.model.interests = interests;
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => HomePage(model: widget.model)),
-              );
+              Future.sync(() => pushInterest(Constants.prefs.getString('token'))).then((value) {
+                if(value) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomePage(model: widget.model)),
+                  );
+                } else {
+                  showDialog<Null>(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return new AlertDialog(
+                        title: new Text('Error'),
+                        content: new SingleChildScrollView(
+                          child: new ListBody(
+                            children: <Widget>[
+                              new Text(
+                                  'Sorry, unable to reach the server, please try again later.'),
+                            ],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          new FlatButton(
+                            child: new Text('Confirm'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              });
             },
             child: Text(
               'SUBMIT',
@@ -224,4 +254,11 @@ class _InterestsPageState extends State<InterestsPage> {
       ),
     );
   }
+
+  Future<bool> pushInterest(String token) async {
+    Map<String, List<String>> interestsJson = {'interests': interests};
+    Response res = await HttpRequests.postJsonAuthenticated("http://165.227.87.42:1234/user/interest", json.encode(interestsJson), token);
+    return (res.statusCode == 200);
+  }
+
 }

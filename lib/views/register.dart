@@ -142,7 +142,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 // if (model.password != null && value != model.password) {
 
                 // }
-
                 return null;
               },
             ),
