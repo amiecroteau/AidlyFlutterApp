@@ -61,7 +61,7 @@ class _MailPageState extends State<MailPage> {
     _recipientController.text = widget.DestinationEmail;
     _bodyController.text =
         'Hi, my name is ${widget.model.firstName} ${widget.model.lastName} \n \nI found your non-profit organization on Aidly.\nI am interested in your open volunteer positions\n \nI am available during '
-        '${showDay(widget.model.day)} in the ${showTime(widget.model.time)}.\n \nPlease reach out to me in response to this email or at ${widget.model.phone}.';
+        '${showDay(widget.model.day)} in the ${showTime(widget.model.time)}.\n \nPlease reach out to me in response to this email or at ${widget.model.email}.';
 
     setState(() {});
     return Scaffold(
