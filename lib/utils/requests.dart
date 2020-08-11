@@ -83,41 +83,10 @@ class HttpRequests {
     );
   }
 
-  static Future<List<OrgModel>> organization_auth(token) async {
+  static Future<List<OrgModel>> organization(token) async {
     var url = baseUrl + "company/matches";
 
-    var response = await getJson(url);
-    if (response != null) {
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body);
-
-        var orgs = data["organizations"];
-        List<OrgModel> orgList = new List<OrgModel>();
-        for (int x = 0; x < orgs.length; x++) {
-          orgList.add(OrgModel(
-              orgs[x]['name'],
-              orgs[x]['main_email'],
-              orgs[x]['street'],
-              orgs[x]['city'],
-              orgs[x]['state'],
-              orgs[x]['zip'],
-              orgs[x]['phone'],
-              orgs[x]['percentage_match'].toDouble()));
-        }
-        return orgList;
-      } else {
-        Constants.prefs.setString('token', '');
-        return new List<OrgModel>();
-      }
-    }
-
-    return new List<OrgModel>();
-  }
-
-  static Future<List<OrgModel>> organization() async {
-    var url = baseUrl + "company/matches";
-
-    var response = await getJson(url);
+    var response = await getJsonAuthenticated(url, token);
     if (response != null) {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);

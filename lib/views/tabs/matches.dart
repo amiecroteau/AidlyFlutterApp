@@ -6,6 +6,7 @@ import 'package:aidly/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:aidly/models/userModel.dart';
 import 'package:aidly/utils/requests.dart';
+import 'package:aidly/utils/constants.dart';
 
 import 'mail.dart';
 
@@ -14,7 +15,8 @@ class FeedsPage extends StatefulWidget {
   UserModel model;
 
   FeedsPage(UserModel model) {
-    this.orgsList = HttpRequests.organization();
+    this.orgsList =
+        HttpRequests.organization(Constants.prefs.getString("token"));
     this.model = model;
   }
 
