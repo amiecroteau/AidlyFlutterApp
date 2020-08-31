@@ -28,7 +28,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
     _eventController = TextEditingController();
     _events = {};
     _selectedEvents = [];
-    Future.sync(() => initPrefs()).then((value) => retrieveEvents());
+    Future.sync(() => initPrefs()).then((value) => retrieveEvents()).then((value) {
+      setState((){_selectedEvents = _events[_calendarController.selectedDay];});
+    });
   }
 
   initPrefs() async {
@@ -108,7 +110,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
               calendarController: _calendarController,
               onDaySelected: (date, events) {
                 setState(() {
-                  // print(date.toIso8601String());
                   _selectedEvents = events;
                 });
               },
@@ -191,6 +192,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     }
                     prefs.setString('events', json.encode(encodeMap(_events)));
                     Navigator.of(context).pop();
+                    _selectedEvents = _events[_calendarController.selectedDay];
                     _eventController.clear();
                   });
                 },
