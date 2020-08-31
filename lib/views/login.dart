@@ -119,25 +119,21 @@ class _LoginPageState extends State<LoginPage> {
         elevation: 5.0,
         onPressed: () => {
           HttpRequests.login(model.email.text, model.password.text)
-              .then((value) => {
-                    if (value)
-                      {
-                        // create UserModel to push to homepage
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomePage(
-                                      model: new UserModel(
-                                        firstName: Constants.prefs
-                                            .getString('firstName'),
-                                        lastName: Constants.prefs
-                                            .getString('lastName'),
-                                        email:
-                                            Constants.prefs.getString('email'),
-                                      ),
-                                    )))
-                      }
-                  })
+              .then((value) {
+            if (value) {
+              // create UserModel to push to homepage
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomePage(
+                            model: new UserModel(
+                              firstName: Constants.prefs.getString('firstName'),
+                              lastName: Constants.prefs.getString('lastName'),
+                              email:
+                                  Constants.prefs.getString('email')))));
+              setState((){});
+            }
+          })
         },
         color: Colors.white,
         shape: new RoundedRectangleBorder(

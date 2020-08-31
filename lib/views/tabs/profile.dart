@@ -1,3 +1,4 @@
+//import 'dart:html';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -108,7 +109,57 @@ class _ProfilePageState extends State<ProfilePage> {
               //TODO: Send value of rating to model to be pulled by database
               _buildIconTile('BBBS of Berks County'),
               hr,
-              Text("Rate your volunteer experience:"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("Rate your volunteer experience:"),
+                  IconButton(
+                    icon: Icon(Icons.help_outline),
+                    tooltip: 'More Information',
+                    color: Colors.teal,
+                    onPressed: () {
+                      setState(() {
+                        showDialog<Null>(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return new AlertDialog(
+                              title: new Text('More Information'),
+                              content: new SingleChildScrollView(
+                                child: new ListBody(children: <Widget>[
+                                  new Row(children: <Widget>[
+                                    Text('Strong-'),
+                                    Container(width: 13),
+                                    Expanded(child: Text('We believe this to be a great opportunity that will match many of your interests and skills.')),
+                                  ], crossAxisAlignment: CrossAxisAlignment.start,),
+                                  new Row(children: <Widget>[
+                                    Text('Average-'),
+                                    Container(width: 3),
+                                    Expanded(child: Text('We believe this to be a good activity that may match some of your interests and skills.')),
+                                  ], crossAxisAlignment: CrossAxisAlignment.start,),
+                                  new Row(children: <Widget>[
+                                    Text('Weak-'),
+                                    Container(width: 21),
+                                    Expanded(child: Text('We believe this may be a good experience for you to try, but it does not completely match your inputted interests and skills.')),
+                                  ], crossAxisAlignment: CrossAxisAlignment.start,),
+                                ]),
+                              ),
+                              actions: <Widget>[
+                                new FlatButton(
+                                  child: new Text('Confirm'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      });
+                    },
+                  ),
+                ],
+              ),
               SmoothStarRating(
                 rating: rating,
                 isReadOnly: false,

@@ -38,12 +38,14 @@ class HttpRequests {
     if (response != null) {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
+        Constants.prefs.setBool('logged', true);
         Constants.prefs.setString('token', data['auth_token']);
         Constants.prefs.setString('firstName', data['firstName']);
         Constants.prefs.setString('lastName', data['lastName']);
         Constants.prefs.setString('email', email);
         return true;
       } else {
+        Constants.prefs.setBool('logged', false);
         Constants.prefs.setString('token', '');
         return false;
       }

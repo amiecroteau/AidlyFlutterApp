@@ -8,7 +8,6 @@ import 'package:http/http.dart';
 import 'package:aidly/utils/constants.dart';
 //import 'package:aidly/sqflite.dart';
 
-//import 'interests.dart';
 
 // ignore: must_be_immutable
 class registerThankYouPage extends StatelessWidget {
@@ -28,7 +27,7 @@ class registerThankYouPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Hi, ${model.firstName}\n\nPlease Verify your Information is correct:\n",
+                  "Hi, ${model.firstName}\n\nPlease verify your information is correct:\n",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.teal,
@@ -81,7 +80,11 @@ class registerThankYouPage extends StatelessWidget {
                         .then((value) {
                       print(value);
                       if (value['status'] == 'success') {
+                        Constants.prefs.setBool('logged', true);
                         Constants.prefs.setString('token', value['auth_token']);
+                        Constants.prefs.setString('firstName', this.model.firstName);
+                        Constants.prefs.setString('lastName', this.model.lastName);
+                        Constants.prefs.setString('email', this.model.email);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -92,16 +95,11 @@ class registerThankYouPage extends StatelessWidget {
                           context: context,
                           barrierDismissible: false,
                           builder: (BuildContext context) {
+                            Constants.prefs.setBool('logged', false);
                             return new AlertDialog(
                               title: new Text('Registration Failed'),
-                              content: new SingleChildScrollView(
-                                child: new ListBody(
-                                  children: <Widget>[
-                                    new Text(
+                              content: new Text(
                                         'Sorry, your registration failed. Please try again.'),
-                                  ],
-                                ),
-                              ),
                               actions: <Widget>[
                                 new FlatButton(
                                   child: new Text('Confirm'),

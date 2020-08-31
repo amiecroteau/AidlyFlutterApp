@@ -60,26 +60,54 @@ class _InterestsPageState extends State<InterestsPage> {
       endIndent: 0,
     );
     final description = Container(
-      child: Center(
-        child: Text(
-          "Please answer these questions with keywords that describe your interests or expertise:\n"
-          "\n"
-          "What groups are you interested in?\n"
-          "\n"
-          "What areas interest you?\n"
-          "\n"
-          "What expertise do you hold?\n"
-          "\n"
-          "What do you enjoy doing?\n"
-          "\n"
-          "What causes inspire you?"
-          "\n",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.teal,
-            fontSize: 17.0,
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Please answer these questions with keywords that describe your interests or expertise:\n"
+            "\n"
+            "What groups are you interested in?\n"
+            "What areas interest you?\n"
+            "What expertise do you hold?\n"
+            "What do you enjoy doing?\n"
+            "What causes inspire you?\n",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.teal,
+              fontSize: 17.0,
+            ),
           ),
-        ),
+          IconButton(
+            icon: Icon(Icons.help_outline),
+            tooltip: 'More Information',
+            color: Colors.teal,
+            onPressed: () {
+              setState(() {
+                showDialog<Null>(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return new AlertDialog(
+                      title: new Text('More Information'),
+                      content: new Text(
+                          'You may enter multiple answers to each question, '
+                          'but please enter one keyword at a time. '
+                          'These keywords will be used to find the most '
+                          'relative opportunities for you.'),
+                      actions: <Widget>[
+                        new FlatButton(
+                          child: new Text('Confirm'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              });
+            },
+          ),
+        ],
       ),
     );
 

@@ -244,7 +244,6 @@ class _RegisterPageState extends State<RegisterPage> {
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
-
                   // print('button pressed');
                   // print(this.model.firstName);
                   Navigator.push(

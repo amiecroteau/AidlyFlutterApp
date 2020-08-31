@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:aidly/theme.dart';
 import 'package:aidly/_routing/routes.dart' as router;
 import 'package:aidly/_routing/routeNames.dart';
+import 'package:aidly/views/home.dart';
+import 'package:aidly/models/userModel.dart';
 
 import 'views/landing.dart';
 
@@ -25,15 +27,16 @@ class App extends StatelessWidget {
           // '/expertise': (context) => ExpertisePage(),
           // '/interests': (context) => InterestsPage(),
           // '/profile': (context) => ProfilePage(),
-          // '/home': (context) => HomePage(),
+          '/home': (context) => HomePage(model: new UserModel(
+              firstName: Constants.prefs.getString('firstName'),
+              lastName: Constants.prefs.getString('lastName'),
+              email: Constants.prefs.getString('email'),
+          )),
         });
   }
 
   String getStartingRoute() {
     // TODO: if user is logged in, return homepage, else, Landing Page
-
-    return Constants.prefs.getBool("loggedIn") == true
-        ? homeViewRoute
-        : landingViewRoute;
+    return Constants.prefs.getBool("logged") ? homeViewRoute : landingViewRoute;
   }
 }
