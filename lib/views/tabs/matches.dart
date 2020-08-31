@@ -1,12 +1,14 @@
 import 'package:aidly/models/orgModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:aidly/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:aidly/models/userModel.dart';
 import 'package:aidly/utils/requests.dart';
 import 'package:aidly/utils/constants.dart';
+import 'package:aidly/views/addNonProfit.dart';
 
 import 'mail.dart';
 
@@ -128,63 +130,61 @@ class _FeedsPageState extends State<FeedsPage> {
         ),
       ),
     );
+    
     final Title = Padding(
       padding: EdgeInsets.only(right: 20.0, left: 20.0),
       child: Container(
-        child: Text(
-          //TODO: Create a new model for these non-Profits and send this value to it. Need Submission button
-          'Not seeing your favorite Non-Profit? \n\Share their information with Aidly.',
-          style: TextStyle(
-            color: Colors.red.withOpacity(1),
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.w600,
-            fontSize: 16.0,
+//        child: Text(
+//          //TODO: Create a new model for these non-Profits and send this value to it. Need Submission button
+//          'Not seeing your favorite Non-Profit?\n'
+//          'Share their information with Aidly.',
+//          style: TextStyle(
+//            color: Colors.red.withOpacity(1),
+//            fontStyle: FontStyle.italic,
+//            fontWeight: FontWeight.w600,
+//            fontSize: 16.0,
+//          ),
+//        ),
+        child: RichText(
+          text: TextSpan(
+            text: 'Not seeing your favorite Non-Profit?\n',
+            style: TextStyle(
+              color: Colors.red.withOpacity(1),
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.w600,
+              fontSize: 16.0,
+            ),
+            children: <TextSpan> [
+              TextSpan(
+                text: 'Share their information',
+                style: TextStyle(
+                  color: Colors.red.withOpacity(1),
+                  fontStyle: FontStyle.italic,
+                  decoration: TextDecoration.underline,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16.0,
+                ),
+                recognizer: new TapGestureRecognizer()
+                  ..onTap = () {
+                    Navigator.push(context, MaterialPageRoute(builder:
+                        (context) => AddNonProfitPage()));
+                  },
+              ),
+              TextSpan(
+                text: ' with Aidly!',
+                style: TextStyle(
+                  color: Colors.red.withOpacity(1),
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16.0,
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
 
-    final InputTitle = Padding(
-      padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 4.0),
-      child: Container(
-        child: Container(
-          height: 50,
-          child: TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Non-Profit Name *',
-            ),
-            onSaved: (String value) {
-              // This optional block of code can be used to run
-              // code when the user saves the form.
-            },
-            validator: (String value) {
-              return value.contains('@') ? 'Do not use the @ char.' : null;
-            },
-          ),
-        ),
-      ),
-    );
-
-    final InputTitle2 = Padding(
-      padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 4.0, top: 0),
-      child: Container(
-        child: Container(
-          height: 50,
-          child: TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Non-Profit Website *',
-            ),
-            onSaved: (String value) {
-              // This optional block of code can be used to run
-              // code when the user saves the form.
-            },
-            validator: (String value) {
-              return value.contains('@') ? 'Do not use the @ char.' : null;
-            },
-          ),
-        ),
-      ),
-    );
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -207,8 +207,7 @@ class _FeedsPageState extends State<FeedsPage> {
                   ),
                   secondCard,
                   Title,
-                  InputTitle,
-                  InputTitle2,
+                  Container(height: 12,),
                 ],
               ),
             ),
