@@ -37,6 +37,6 @@ class App extends StatelessWidget {
 
   String getStartingRoute() {
     // TODO: if user is logged in, return homepage, else, Landing Page
-    return Constants.prefs.getBool("logged") ? homeViewRoute : landingViewRoute;
+    return Constants.prefs.getBool("logged")==true ? homeViewRoute : landingViewRoute;
   }
 }

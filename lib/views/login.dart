@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:aidly/utils/colors.dart';
+import 'package:http/http.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -117,23 +118,27 @@ class _LoginPageState extends State<LoginPage> {
       ),
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => {
-          HttpRequests.login(model.email.text, model.password.text)
-              .then((value) {
-            if (value) {
+        onPressed: () {
+          loginAttempt(model.email.text, model.password.text).then((value) {
+            if (value['status'] == 'success') {
               // create UserModel to push to homepage
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HomePage(
+              Constants.prefs.setBool('logged', true);
+              Constants.prefs.setString('token', value['auth_token']);
+              Constants.prefs.setString('firstName', value['firstName']);
+              Constants.prefs.setString('lastName', value['lastName']);
+              Constants.prefs.setString('email', model.email.text);
+              setState(() {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomePage(
                             model: new UserModel(
-                              firstName: Constants.prefs.getString('firstName'),
-                              lastName: Constants.prefs.getString('lastName'),
-                              email:
-                                  Constants.prefs.getString('email')))));
-              setState((){});
+                                firstName: value['firstName'],
+                                lastName: value['lastName'],
+                                email: model.email.text))));
+              });
             }
-          })
+          });
         },
         color: Colors.white,
         shape: new RoundedRectangleBorder(
@@ -219,4 +224,13 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+  Future<Map<String, dynamic>> loginAttempt(String email, String password) async {
+    Response res = await HttpRequests.postJson(
+        "http://165.227.87.42:1234/user/login", json.encode(
+        <String, String> {'email': email, 'password': password}));
+    Map<String, dynamic> resJson = json.decode(res.body);
+    return resJson;
+  }
+
 }

@@ -130,7 +130,7 @@ class _FeedsPageState extends State<FeedsPage> {
         ),
       ),
     );
-    
+
     final Title = Padding(
       padding: EdgeInsets.only(right: 20.0, left: 20.0),
       child: Container(
