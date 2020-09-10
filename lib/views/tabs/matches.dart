@@ -9,6 +9,7 @@ import 'package:aidly/models/userModel.dart';
 import 'package:aidly/utils/requests.dart';
 import 'package:aidly/utils/constants.dart';
 import 'package:aidly/views/addNonProfit.dart';
+import 'package:aidly/views/orgProfile.dart';
 
 import 'mail.dart';
 
@@ -109,15 +110,7 @@ class _FeedsPageState extends State<FeedsPage> {
                       children: <Widget>[
                         _buildIconTile(
                             LineIcons.check,
-                            Colors.red,
-                            org.name,
-                            org.main_email,
-                            org.street,
-                            org.city,
-                            org.state,
-                            org.zip,
-                            org.phone,
-                            org.percentage_match),
+                            Colors.red, org),
                         hr,
                       ],
                     );
@@ -243,17 +236,10 @@ class _FeedsPageState extends State<FeedsPage> {
   Widget _buildIconTile(
       IconData icon,
       Color color,
-      String name,
-      String main_email,
-      String street,
-      String city,
-      String state,
-      String zip,
-      String phone,
-      double percentage_match) {
+      OrgModel org) {
     return ListTile(
       title: Text(
-        name,
+        org.name,
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       subtitle: Align(
@@ -262,13 +248,13 @@ class _FeedsPageState extends State<FeedsPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Email: $main_email'),
-              Text('Street Address: $street'),
-              Text('City: $city'),
-              Text('State: $state'),
-              Text('Zip: $zip'),
-              Text('Phone: $phone'),
-              Text('Match: $percentage_match',
+              Text('Email: ' + org.main_email),
+              Text('Street Address: ' + org.street),
+              Text('City: ' + org.city),
+              Text('State: ' + org.state),
+              Text('Zip: ' + org.zip),
+              Text('Phone: ' + org.phone),
+              Text('Match: ${org.percentage_match}',
                   style: TextStyle(fontWeight: FontWeight.bold))
             ]),
       ),
@@ -288,7 +274,7 @@ class _FeedsPageState extends State<FeedsPage> {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => MailPage(main_email, widget.model),
+          builder: (context) => OrgProfile(org, widget.model),
         ),
       ),
     );
