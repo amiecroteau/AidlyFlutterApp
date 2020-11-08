@@ -1,8 +1,14 @@
+import 'dart:convert';
+import 'package:aidly/models/loginModel.dart';
+import 'package:aidly/models/userModel.dart';
+import 'package:aidly/utils/constants.dart';
+import 'package:aidly/utils/requests.dart';
+import 'package:aidly/views/home.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_social/_routing/routes.dart';
-import 'package:flutter_social/utils/colors.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:flutter/services.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:aidly/utils/colors.dart';
+import 'package:http/http.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,6 +17,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  final model = LoginModel();
+
+  @override
+  void dispose() {
+    // clean up everything once widget is done
+    model.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          "Log In.",
+          "Log In",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -41,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final emailField = TextFormField(
+      controller: model.email,
       decoration: InputDecoration(
         labelText: 'Email Address',
         labelStyle: TextStyle(color: Colors.white),
@@ -61,6 +76,7 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final passwordField = TextFormField(
+      controller: model.password,
       decoration: InputDecoration(
         labelText: 'Password',
         labelStyle: TextStyle(color: Colors.white),
@@ -102,7 +118,28 @@ class _LoginPageState extends State<LoginPage> {
       ),
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => Navigator.pushNamed(context, homeViewRoute),
+        onPressed: () {
+          loginAttempt(model.email.text, model.password.text).then((value) {
+            if (value['status'] == 'success') {
+              // create UserModel to push to homepage
+              Constants.prefs.setBool('logged', true);
+              Constants.prefs.setString('token', value['auth_token']);
+              Constants.prefs.setString('firstName', value['firstName']);
+              Constants.prefs.setString('lastName', value['lastName']);
+              Constants.prefs.setString('email', model.email.text);
+              setState(() {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomePage(
+                            model: new UserModel(
+                                firstName: value['firstName'],
+                                lastName: value['lastName'],
+                                email: model.email.text))));
+              });
+            }
+          });
+        },
         color: Colors.white,
         shape: new RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(7.0),
@@ -120,7 +157,9 @@ class _LoginPageState extends State<LoginPage> {
     final forgotPassword = Padding(
       padding: EdgeInsets.only(top: 50.0),
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, resetPasswordViewRoute),
+        onTap: () => {
+          //Navigator.pushNamed(context, resetPasswordViewRoute)
+        },
         child: Center(
           child: Text(
             'Forgot Password?',
@@ -137,7 +176,9 @@ class _LoginPageState extends State<LoginPage> {
     final newUser = Padding(
       padding: EdgeInsets.only(top: 20.0),
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, registerViewRoute),
+        onTap: () => {
+          //Navigator.pushNamed(context, registerViewRoute)
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -183,4 +224,13 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+  Future<Map<String, dynamic>> loginAttempt(String email, String password) async {
+    Response res = await HttpRequests.postJson(
+        "http://165.227.87.42:1234/user/login", json.encode(
+        <String, String> {'email': email, 'password': password}));
+    Map<String, dynamic> resJson = json.decode(res.body);
+    return resJson;
+  }
+
 }

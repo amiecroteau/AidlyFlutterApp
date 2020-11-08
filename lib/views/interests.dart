@@ -1,12 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_social/_routing/routes.dart';
-import 'package:flutter_social/utils/colors.dart';
-import 'package:flutter_social/views/expertise.dart';
-import 'package:flutter_social/views/tabs/profile.dart';
-import 'package:line_icons/line_icons.dart';
-import 'package:flutter_social/models/model.dart';
-import 'package:flutter_social/views/registerThankYou.dart';
+//import 'package:aidly/_routing/routes.dart';
+import 'package:aidly/utils/colors.dart';
+//import 'package:aidly/views/expertise.dart';
+//import 'package:aidly/views/tabs/profile.dart';
+//import 'package:line_icons/line_icons.dart';
+import 'package:aidly/models/userModel.dart';
+//import 'package:aidly/views/registerThankYouPage.dart';
+import 'package:aidly/utils/requests.dart';
+import 'package:aidly/views/home.dart';
+import 'package:aidly/utils/constants.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart';
 
 // ignore: must_be_immutable
 class InterestsPage extends StatefulWidget {
@@ -18,7 +24,7 @@ class InterestsPage extends StatefulWidget {
 
 class _InterestsPageState extends State<InterestsPage> {
   UserModel model;
-  final List<String> interests = <String>[];
+  List<String> interests = <String>[];
   TextEditingController interestsController = TextEditingController();
 
   void addItemToList() {
@@ -29,50 +35,85 @@ class _InterestsPageState extends State<InterestsPage> {
 
   Widget build(BuildContext context) {
     final appBar = Padding(
-      padding: EdgeInsets.only(bottom: 40.0),
+      padding: EdgeInsets.only(bottom: 3.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-          )
-        ],
+        children: <Widget>[],
       ),
     );
 
     final pageTitle = Container(
       child: Text(
-        "Hi," + " share your interests.",
+        "Hi, ${widget.model.firstName} \n",
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          color: Colors.black,
-          fontSize: 30.0,
+          color: Colors.teal,
+          fontSize: 25.0,
         ),
       ),
     );
-
-    final example = Container(
-      child: Text(
-        "For Example:\n"
-        "sports\n"
-        "church\n"
-        "science\n"
-        "animals\n",
-        style: TextStyle(
-          fontWeight: FontWeight.w100,
-          fontStyle: FontStyle.italic,
-          color: Colors.black,
-          fontSize: 20.0,
-        ),
+    final divider = Divider(
+      color: Colors.tealAccent,
+      height: 20,
+      thickness: 2,
+      indent: 20,
+      endIndent: 0,
+    );
+    final description = Container(
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Please answer these questions with keywords that describe your interests or expertise:\n"
+            "\n"
+            "What groups are you interested in?\n"
+            "What areas interest you?\n"
+            "What expertise do you hold?\n"
+            "What do you enjoy doing?\n"
+            "What causes inspire you?\n",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.teal,
+              fontSize: 17.0,
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.help_outline),
+            tooltip: 'More Information',
+            color: Colors.teal,
+            onPressed: () {
+              setState(() {
+                showDialog<Null>(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return new AlertDialog(
+                      title: new Text('More Information'),
+                      content: new Text(
+                          'You may enter multiple answers to each question, '
+                          'but please enter one keyword at a time. '
+                          'These keywords will be used to find the most '
+                          'relative opportunities for you.'),
+                      actions: <Widget>[
+                        new FlatButton(
+                          child: new Text('Confirm'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              });
+            },
+          ),
+        ],
       ),
     );
 
+//TODO: Add a tooltip to show examples.
     final formFieldSpacing = SizedBox(
-      height: 20.0,
+      height: 10.0,
     );
 
     final interestIntro = Row(
@@ -81,7 +122,7 @@ class _InterestsPageState extends State<InterestsPage> {
           child: TextField(
             controller: interestsController,
             decoration: InputDecoration(
-              labelText: 'Add your Interest',
+              labelText: 'Add your Keyword',
             ),
           ),
         ),
@@ -90,7 +131,7 @@ class _InterestsPageState extends State<InterestsPage> {
     final interestButton = Padding(
       padding: EdgeInsets.only(top: 10.0),
       child: Container(
-        margin: EdgeInsets.only(top: 10.0, bottom: 20.0),
+        margin: EdgeInsets.only(top: 0.0, bottom: 5.0),
         height: 50.0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
@@ -107,7 +148,7 @@ class _InterestsPageState extends State<InterestsPage> {
               addItemToList();
             },
             child: Text(
-              'ADD INTERESTS',
+              'ADD KEYWORD',
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 20.0,
@@ -144,10 +185,10 @@ class _InterestsPageState extends State<InterestsPage> {
     );
 
     final submitBtn = Padding(
-      padding: EdgeInsets.only(top: 20.0),
+      padding: EdgeInsets.only(top: 10.0),
       child: Container(
-        margin: EdgeInsets.only(top: 10.0, bottom: 20.0),
-        height: 60.0,
+        margin: EdgeInsets.only(top: 0.0, bottom: 10.0),
+        height: 50.0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7.0),
@@ -161,17 +202,45 @@ class _InterestsPageState extends State<InterestsPage> {
           child: MaterialButton(
             color: primaryColor,
             onPressed: () {
-              /*Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ProfilePage(model: this.model)));*/
-              Navigator.pushNamed(
-                (context),
-                '/expertise',
-              );
+              widget.model.interests = interests;
+              Future.sync(() => pushInterest(Constants.prefs.getString('token'))).then((value) {
+                if(value) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomePage(model: widget.model)),
+                  );
+                } else {
+                  showDialog<Null>(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return new AlertDialog(
+                        title: new Text('Error'),
+                        content: new SingleChildScrollView(
+                          child: new ListBody(
+                            children: <Widget>[
+                              new Text(
+                                  'Sorry, unable to reach the server, please try again later.'),
+                            ],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          new FlatButton(
+                            child: new Text('Confirm'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              });
             },
             child: Text(
-              'SUBMIT INTERESTS',
+              'SUBMIT',
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 20.0,
@@ -184,6 +253,7 @@ class _InterestsPageState extends State<InterestsPage> {
     );
 
     return Scaffold(
+      appBar: AppBar(title: Text('Share Your Interests')),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.only(top: 40.0),
@@ -196,12 +266,12 @@ class _InterestsPageState extends State<InterestsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     pageTitle,
-                    formFieldSpacing,
-                    example,
+                    divider,
+                    description,
+                    divider,
                     interestIntro,
                     interestButton,
                     interestLists,
-                    formFieldSpacing,
                     submitBtn
                   ],
                 ),
@@ -212,4 +282,11 @@ class _InterestsPageState extends State<InterestsPage> {
       ),
     );
   }
+
+  Future<bool> pushInterest(String token) async {
+    Map<String, List<String>> interestsJson = {'interests': interests};
+    Response res = await HttpRequests.postJsonAuthenticated("http://165.227.87.42:1234/user/interest", json.encode(interestsJson), token);
+    return (res.statusCode == 200);
+  }
+
 }

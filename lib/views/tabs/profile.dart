@@ -1,69 +1,60 @@
+//import 'dart:html';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_social/utils/colors.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:aidly/utils/colors.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:flutter_social/models/model.dart';
+import 'package:aidly/models/userModel.dart';
+import 'package:aidly/models/orgModel.dart';
 
-// ignore: must_be_immutable
 class ProfilePage extends StatefulWidget {
   UserModel model;
 
-  ProfilePage({this.model});
+  ProfilePage(UserModel model) {
+    this.model = model;
+  }
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  @override
+  var rating = 3.0;
+
   Widget build(BuildContext context) {
     final hr = Divider();
 
     final userNameLocation = Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            (widget.model.firstName + widget.model.lastName),
-            style: TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.w900,
+      child: Expanded(
+        flex: 1,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              "${widget.model.firstName} ${widget.model.lastName}",
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.w900,
+              ),
             ),
-          ),
-          Text(
-            widget.model.zip,
-            style: TextStyle(
-              color: Colors.grey.withOpacity(0.6),
-              fontSize: 18.0,
-              fontWeight: FontWeight.w700,
+            Text(
+              widget.model.email,
+              style: TextStyle(
+                color: Colors.grey.withOpacity(0.6),
+                fontSize: 18.0,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          ),
-          Text(
-            widget.model.phone,
-            style: TextStyle(
-              color: Colors.grey.withOpacity(0.6),
-              fontSize: 18.0,
-              fontWeight: FontWeight.w700,
+            Text(
+              widget.model.statement,
+              style: TextStyle(
+                color: Colors.grey.withOpacity(0.6),
+                fontSize: 20.0,
+              ),
             ),
-          ),
-          Text(
-            widget.model.email,
-            style: TextStyle(
-              color: Colors.grey.withOpacity(0.6),
-              fontSize: 18.0,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          Text(
-            widget.model.statement,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20.0,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
 // TODO: Add the variables to receive the model
@@ -94,8 +85,15 @@ class _ProfilePageState extends State<ProfilePage> {
       ],
     );
 
+    final profileTitle = Text("Completed Volunteer Positions:",
+        style: TextStyle(
+          color: Colors.black87,
+          fontWeight: FontWeight.w900,
+          fontSize: 20.0,
+        ));
     final secondCard = Padding(
-      padding: EdgeInsets.only(right: 20.0, left: 20.0, bottom: 30.0),
+      padding:
+          EdgeInsets.only(right: 20.0, left: 20.0, bottom: 30.0, top: 20.0),
       child: Material(
         elevation: 5.0,
         borderRadius: BorderRadius.circular(8.0),
@@ -108,14 +106,74 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           child: Column(
             children: <Widget>[
-              _buildIconTile(
-                  Icons.check, Colors.red, 'First Match populated here'),
+              //TODO: Send value of rating to model to be pulled by database
+              _buildIconTile('BBBS of Berks County'),
               hr,
-              _buildIconTile(
-                  LineIcons.check, Colors.green, 'Second Match populated here'),
-              hr,
-              _buildIconTile(LineIcons.check, Colors.purpleAccent,
-                  'Third Match populated here'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("Rate your volunteer experience:"),
+                  IconButton(
+                    icon: Icon(Icons.help_outline),
+                    tooltip: 'More Information',
+                    color: Colors.teal,
+                    onPressed: () {
+                      setState(() {
+                        showDialog<Null>(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return new AlertDialog(
+                              title: new Text('More Information'),
+                              content: new SingleChildScrollView(
+                                child: new ListBody(children: <Widget>[
+                                  new Row(children: <Widget>[
+                                    Text('Strong-'),
+                                    Container(width: 13),
+                                    Expanded(child: Text('We believe this to be a great opportunity that will match many of your interests and skills.')),
+                                  ], crossAxisAlignment: CrossAxisAlignment.start,),
+                                  new Row(children: <Widget>[
+                                    Text('Average-'),
+                                    Container(width: 3),
+                                    Expanded(child: Text('We believe this to be a good activity that may match some of your interests and skills.')),
+                                  ], crossAxisAlignment: CrossAxisAlignment.start,),
+                                  new Row(children: <Widget>[
+                                    Text('Weak-'),
+                                    Container(width: 21),
+                                    Expanded(child: Text('We believe this may be a good experience for you to try, but it does not completely match your inputted interests and skills.')),
+                                  ], crossAxisAlignment: CrossAxisAlignment.start,),
+                                ]),
+                              ),
+                              actions: <Widget>[
+                                new FlatButton(
+                                  child: new Text('Confirm'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      });
+                    },
+                  ),
+                ],
+              ),
+              SmoothStarRating(
+                rating: rating,
+                isReadOnly: false,
+                size: 80,
+                filledIconData: Icons.star,
+                halfFilledIconData: Icons.star_half,
+                defaultIconData: Icons.star_border,
+                starCount: 4,
+                allowHalfRating: true,
+                spacing: 2.0,
+                onRated: (value) {
+                  print("rating value -> $value");
+                },
+              ),
             ],
           ),
         ),
@@ -142,6 +200,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Positioned(top: 100, right: 0, left: 0, child: userInfo)
                     ],
                   ),
+                  profileTitle,
                   secondCard,
                 ],
               ),
@@ -153,49 +212,45 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildUserStats(String name, String value) {
-    return Column(
-      children: <Widget>[
-        Text(
-          name,
-          style: TextStyle(
-            color: Colors.grey.withOpacity(0.6),
-            fontWeight: FontWeight.w600,
-            fontSize: 16.0,
+    return Expanded(
+      flex: 5,
+      child: Column(
+        children: <Widget>[
+          Text(
+            name,
+            style: TextStyle(
+              color: Colors.grey.withOpacity(0.6),
+              fontWeight: FontWeight.w600,
+              fontSize: 16.0,
+            ),
           ),
-        ),
-        Text(
-          value,
-          style: TextStyle(
-            color: Colors.black87,
-            fontWeight: FontWeight.w900,
-            fontSize: 20.0,
+          Text(
+            value,
+            style: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.w900,
+              fontSize: 15.0,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
-  Widget _buildIconTile(IconData icon, Color color, String title) {
+  Widget _buildIconTile(String title) {
     return ListTile(
       title: Text(
         title,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+        textAlign: TextAlign.justify,
       ),
       leading: Container(
         height: 30.0,
         width: 30.0,
         decoration: BoxDecoration(
-          color: color,
           borderRadius: BorderRadius.circular(10.0),
         ),
-        child: Center(
-          child: Icon(
-            icon,
-            color: Colors.white,
-          ),
-        ),
       ),
-      trailing: Icon(LineIcons.chevron_circle_right),
     );
   }
 }

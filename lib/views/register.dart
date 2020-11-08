@@ -1,7 +1,8 @@
+import 'package:aidly/views/registerThankYouPage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_social/models/model.dart';
-import 'package:flutter_social/utils/colors.dart';
-import 'package:flutter_social/views/registerThankYou.dart';
+import 'package:aidly/models/userModel.dart';
+import 'package:aidly/utils/colors.dart';
+//import 'package:aidly/views/registerThankYou.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:validators/validators.dart' as validator;
 
@@ -33,38 +34,20 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final appBar = Padding(
-      padding: EdgeInsets.only(bottom: 40.0),
+      padding: EdgeInsets.only(bottom: 20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-          )
-        ],
+        children: <Widget>[],
       ),
     );
 
-    final pageTitle = Container(
-      child: Text(
-        "Tell us about you.",
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-          fontSize: 30.0,
-        ),
-      ),
-    );
 //TODO figure out how to test the model object data
     final formFieldSpacing = SizedBox(
-      height: 30.0,
+      height: 0,
     );
 
     final registerForm = Padding(
-      padding: EdgeInsets.only(top: 10.0),
+      padding: EdgeInsets.only(top: 0),
       child: Form(
         key: _formKey,
         child: Column(
@@ -75,6 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
               onSaved: (String value) {
                 model.firstName = value;
               },
+              textInput: TextInputType.text,
             ),
             _buildFormField(
               'Last Name',
@@ -82,6 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
               onSaved: (String value) {
                 model.lastName = value;
               },
+              textInput: TextInputType.text,
             ),
             _buildFormField(
               'Email',
@@ -96,6 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
               onSaved: (String value) {
                 model.email = value;
               },
+              textInput: TextInputType.emailAddress,
             ),
             _buildFormField(
               'Phone Number',
@@ -128,6 +114,7 @@ class _RegisterPageState extends State<RegisterPage> {
               onSaved: (String value) {
                 model.zip = value;
               },
+              textInput: TextInputType.number,
             ),
             _buildFormField(
               'Password',
@@ -152,21 +139,16 @@ class _RegisterPageState extends State<RegisterPage> {
               LineIcons.unlock,
               isPassword: true,
               validator: (String value) {
-                if (model.password != null && value != model.password) {
-                  print(value);
-                  print(model.password);
-                  return 'Password not matched';
-                }
+                // if (model.password != null && value != model.password) {
 
+                // }
                 return null;
               },
             ),
-            _buildFormField(
-                'Write about why you are volunteering.', LineIcons.user,
+            _buildFormField('Why are you volunteering?', LineIcons.user,
                 onSaved: (String value) {
               model.statement = value;
             }),
-            formFieldSpacing
           ],
         ),
       ),
@@ -236,9 +218,9 @@ class _RegisterPageState extends State<RegisterPage> {
     );
 
     final submitBtn = Padding(
-      padding: EdgeInsets.only(top: 10.0),
+      padding: EdgeInsets.only(top: 0.0),
       child: Container(
-        margin: EdgeInsets.only(top: 10.0, bottom: 20.0),
+        margin: EdgeInsets.only(top: 0.0, bottom: 10.0),
         height: 50.0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
@@ -262,7 +244,8 @@ class _RegisterPageState extends State<RegisterPage> {
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
-
+                  // print('button pressed');
+                  // print(this.model.firstName);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -275,9 +258,10 @@ class _RegisterPageState extends State<RegisterPage> {
     );
 
     return Scaffold(
+      appBar: AppBar(title: Text('Share About You')),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(top: 40.0),
+          padding: EdgeInsets.only(top: 0.0),
           child: Column(
             children: <Widget>[
               appBar,
@@ -286,7 +270,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    pageTitle,
                     registerForm,
                     daysT,
                     days,
@@ -351,7 +334,7 @@ class FormValidator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(1.0),
       child: TextFormField(
         decoration: InputDecoration(
           hintText: hintText,

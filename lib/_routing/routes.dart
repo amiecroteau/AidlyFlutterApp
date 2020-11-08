@@ -1,14 +1,25 @@
-const String landingViewRoute = '/';
+import 'package:aidly/views/interests.dart';
+import 'package:aidly/views/login.dart';
+import 'package:aidly/views/registerThankYouPage.dart';
+import 'package:flutter/material.dart';
+import 'package:aidly/views/landing.dart';
+import 'package:aidly/_routing/routeNames.dart';
+import 'package:aidly/views/register.dart';
 
-const String loginViewRoute = 'login';
-const String registerViewRoute = 'register';
-const String resetPasswordViewRoute = 'reset_password';
-const String thankYouViewRoute = 'thankYou';
-const String homeViewRoute = 'home';
-const String bioViewRoute = 'bio';
-const String chatDetailsViewRoute = 'chat_details';
-const String userDetailsViewRoute = 'user_details';
-const String interestsViewRoute = 'interests';
-const String expertiseViewRoute = 'expertise';
-const String profileViewRoute = 'profile';
-const String modelViewRoute = 'model';
+Route<dynamic> generateRoute(RouteSettings settings) {
+  switch (settings.name) {
+    case landingViewRoute:
+      return MaterialPageRoute(builder: (context) => LandingPage());
+    case loginViewRoute:
+      return MaterialPageRoute(builder: (context) => LoginPage());
+    case registerViewRoute:
+      return MaterialPageRoute(builder: (context) => RegisterPage());
+    case registerThankYouViewRoute:
+      return MaterialPageRoute(builder: (context) => registerThankYouPage());
+    case interestsViewRoute:
+      return MaterialPageRoute(builder: (context) => InterestsPage());
+
+    default:
+      return MaterialPageRoute(builder: (context) => LandingPage());
+  }
+}

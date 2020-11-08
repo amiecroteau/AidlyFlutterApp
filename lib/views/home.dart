@@ -1,36 +1,29 @@
+import 'package:aidly/models/orgModel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_social/models/model.dart';
-import 'package:flutter_social/models/user.dart';
-import 'package:flutter_social/utils/colors.dart';
-import 'package:flutter_social/views/tabs/calendar.dart';
-import 'package:flutter_social/views/tabs/chats.dart';
-import 'package:flutter_social/views/tabs/feeds.dart';
-import 'package:flutter_social/views/tabs/notifications.dart';
-import 'package:flutter_social/views/tabs/profile.dart';
+import 'package:aidly/models/userModel.dart';
+import 'package:aidly/utils/colors.dart';
+//import 'package:aidly/utils/constants.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:aidly/views/tabs/calendar.dart';
+import 'package:aidly/views/tabs/matches.dart';
+import 'package:aidly/views/tabs/profile.dart';
+import 'package:aidly/views/tabs/mail.dart';
 
 // ignore: must_be_immutable
 class HomePage extends StatefulWidget {
   UserModel model;
+  OrgModel orgsList;
 
-  HomePage({this.model});
+  HomePage({this.model, this.orgsList});
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-// ignore: must_be_immutable
-
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   UserModel model;
-
-  final List<Widget> _pages = [
-    FeedsPage(),
-    ChatsPage(),
-    NotificationsPage(),
-    CalendarScreen(),
-    ProfilePage()
-  ];
+  List<OrgModel> orgsList;
+  List<Widget> _pages;
 
   void onTabTapped(int index) {
     setState(() {
@@ -40,6 +33,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    _pages = [
+      FeedsPage(widget.model),
+      MailPage("", widget.model),
+      CalendarScreen(),
+      ProfilePage(widget.model),
+    ];
+
     final bottomNavBar = BottomNavigationBar(
       onTap: onTabTapped,
       currentIndex: _currentIndex,
@@ -48,23 +48,16 @@ class _HomePageState extends State<HomePage> {
       elevation: 0.0,
       items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.rss_feed),
+          icon: Icon(Icons.check),
           title: Text(
-            'Feed',
+            'Matches',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
         BottomNavigationBarItem(
-          icon: Icon(LineIcons.comments),
+          icon: Icon(Icons.mail),
           title: Text(
-            'Chats',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(LineIcons.bell),
-          title: Text(
-            'Notifications',
+            'Email',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),

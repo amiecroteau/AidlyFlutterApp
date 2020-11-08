@@ -2,10 +2,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:http/http.dart';
+import 'package:aidly/utils/requests.dart';
+import 'dart:async';
 
 class CalendarScreen extends StatefulWidget {
   static const String id = 'calendar_screen';
 
+//TODO: We need to decide how to save the input of the events
   @override
   _CalendarScreenState createState() => _CalendarScreenState();
 }
@@ -24,7 +28,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
     _eventController = TextEditingController();
     _events = {};
     _selectedEvents = [];
-    initPrefs();
+    Future.sync(() => initPrefs()).then((value) => retrieveEvents()).then((value) {
+      setState((){_selectedEvents = _events[_calendarController.selectedDay];});
+    });
   }
 
   initPrefs() async {
@@ -51,6 +57,24 @@ class _CalendarScreenState extends State<CalendarScreen> {
       newMap[DateTime.parse(key)] = map[key];
     });
     return newMap;
+  }
+
+  // retrieve events
+  retrieveEvents() async {
+    //await initPrefs();
+    Response res =
+        await HttpRequests.getJson("http://165.227.87.42:1234/user/events");
+    List eventsJson = json.decode(res.body)['events'];
+    eventsJson.forEach((element) {
+      DateTime date = DateTime.parse(element['date']);
+      setState(() {
+        if (_events[date] != null) {
+          _events[date].add(element['title']);
+        } else {
+          _events[date] = [element['title']];
+        }
+      });
+    });
   }
 
   @override
@@ -86,7 +110,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
               calendarController: _calendarController,
               onDaySelected: (date, events) {
                 setState(() {
-                  print(date.toIso8601String());
                   _selectedEvents = events;
                 });
               },
@@ -169,6 +192,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     }
                     prefs.setString('events', json.encode(encodeMap(_events)));
                     Navigator.of(context).pop();
+                    _selectedEvents = _events[_calendarController.selectedDay];
                     _eventController.clear();
                   });
                 },
